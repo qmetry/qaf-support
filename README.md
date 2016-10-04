@@ -1,11 +1,11 @@
 # qaf-support
 Support project that provides ready to use steps for web and webservices
 
-**IVY
+**IVY**
 
 Create or update ivysettings.xml file to add new repository. Alternately you can add settings block into ivy.xml as well.
 
-***IVY settings
+***IVY settings***
 
 ```xml
 <?xml version="1.0" encoding="ISO-8859-1"?>
@@ -19,7 +19,7 @@ Create or update ivysettings.xml file to add new repository. Alternately you can
     </resolvers>
 </ivysettings>
 ```
-***IVY Dependency Entry
+***IVY Dependency Entry***
 
 ```xml
 <dependency org="com.qmetry" name="qaf" rev="2.1.8" />
@@ -29,14 +29,14 @@ Create or update ivysettings.xml file to add new repository. Alternately you can
 
 **Maven**
 
-***Repository entry:
+***Repository entry:***
 
 <repository>
     <id>qaf</id>
     <url>https://qmetry.github.io/qaf/dist</url>
 </repository>
 
-***Maven Dependency Entry:
+***Maven Dependency Entry:***
 
 ``` xml
 <dependency>
