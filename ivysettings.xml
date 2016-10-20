@@ -18,7 +18,7 @@
 				root="https://qmetry.github.io/qaf/dist" />
 		</chain>
 		<filesystem name="local-m2-publish" m2compatible="true">
-      		<artifact pattern="${basedir}/repository/[organisation]/[module]/[revision]/[artifact]-[revision](-[classifier]).[ext]"/>
+      		<artifact pattern="${basedir}/repository/[organisation]/[module]/[revision]/qaf-support-[revision](-[classifier]).[ext]"/>
     	</filesystem>
 	</resolvers>
 </ivysettings>
