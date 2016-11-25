@@ -20,5 +20,7 @@
 		<dependency org="org.aspectj" name="aspectjtools" rev="1.8.5">
 			<artifact name="aspectjtools" type="jar"></artifact>
 		</dependency>
+		<!--  ws  -->
+		<dependency org="org.xmlmatchers" name="xml-matchers" rev="latest.integration"/>
 	</dependencies>
 </ivy-module>
