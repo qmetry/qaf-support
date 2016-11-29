@@ -103,8 +103,9 @@ For any inquiry or need additional information, please contact support-qaf@infos
 		<taskdef classpathref="build.classpath" resource="org/aspectj/tools/ant/taskdefs/aspectjTaskdefs.properties" />
 
 		<echo level="info">--- compile (start) ---</echo>
-		<iajc source="${source}" target="${target}" showweaveinfo="true" verbose="true" destdir="${bin.dir}" debug="false">
-			<inpath location="${src.dir}">
+		<iajc source="${source}" target="${target}" showweaveinfo="true" verbose="true" destdir="${bin.dir}" debug="false" aspectpathref="build.classpath">
+			<inpath>
+				<pathelement location="${src.dir}" />
 			</inpath>
 			<sourceroots>
 				<pathelement location="${src.dir}" />
@@ -191,23 +192,23 @@ For any inquiry or need additional information, please contact support-qaf@infos
 		</ivy:publish>
 
 	</target>
-	
+
 	<target name="publish" depends="init, build">
-	<!-- Determine build number from previously published revisions -->
-	<ivy:buildnumber resolver="local-m2-publish" organisation="${ivy.organisation}" module="${ivy.module}" revision="${release.num}" />
+		<!-- Determine build number from previously published revisions -->
+		<ivy:buildnumber resolver="local-m2-publish" organisation="${ivy.organisation}" module="${ivy.module}" revision="${release.num}" />
 
-	<!-- Resolve ivy dependencies and create a Maven POM file -->
-	<ivy:deliver deliverpattern="${dist.dir}/ivy.xml" pubrevision="${release.num}" status="release" />
-	<ivy:makepom ivyfile="${dist.dir}/ivy.xml" pomfile="${dist.dir}/qaf-support.pom">
-		<mapping conf="*,default" scope="compile" />
-	</ivy:makepom>
+		<!-- Resolve ivy dependencies and create a Maven POM file -->
+		<ivy:deliver deliverpattern="${dist.dir}/ivy.xml" pubrevision="${release.num}" status="release" />
+		<ivy:makepom ivyfile="${dist.dir}/ivy.xml" pomfile="${dist.dir}/qaf-support.pom">
+			<mapping conf="*,default" scope="compile" />
+		</ivy:makepom>
 
-	<!-- Publish the local repo. Defaults to ~/.ivy2/local -->
-	<ivy:publish resolver="local-m2-publish" forcedeliver="true" publishivy="true" pubrevision="${release.num}" overwrite="true">
-		<artifacts pattern="${dist.dir}/[artifact].[ext]" />
-		<artifact name="qaf-support" pattern="${dist.dir}/[artifact].[ext]" ext="pom" type="pom" version="${release.num}" />
-		<artifact name="qaf-support-sources" pattern="${dist.dir}/[artifact].[ext]" ext="jar" classifier="sources" type="sources" version="${release.num}" />
-		<artifact name="qaf-support-javadoc" pattern="${dist.dir}/[artifact].[ext]" ext="jar" classifier="javadoc" type="javadoc" version="${release.num}" />
-	</ivy:publish>
+		<!-- Publish the local repo. Defaults to ~/.ivy2/local -->
+		<ivy:publish resolver="local-m2-publish" forcedeliver="true" publishivy="true" pubrevision="${release.num}" overwrite="true">
+			<artifacts pattern="${dist.dir}/[artifact].[ext]" />
+			<artifact name="qaf-support" pattern="${dist.dir}/[artifact].[ext]" ext="pom" type="pom" version="${release.num}" />
+			<artifact name="qaf-support-sources" pattern="${dist.dir}/[artifact].[ext]" ext="jar" classifier="sources" type="sources" version="${release.num}" />
+			<artifact name="qaf-support-javadoc" pattern="${dist.dir}/[artifact].[ext]" ext="jar" classifier="javadoc" type="javadoc" version="${release.num}" />
+		</ivy:publish>
 	</target>
 </project>
