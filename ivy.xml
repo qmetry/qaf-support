@@ -20,12 +20,11 @@
 		<dependency org="org.aspectj" name="aspectjtools" rev="1.8.5">
 			<artifact name="aspectjtools" type="jar"></artifact>
 		</dependency>
-				<dependency org="xmlunit" name="xmlunit" rev="1.4" />
-
-		<dependency org="org.xmlmatchers" name="xml-matchers" rev="0.10" />
-
+				
+		<!--  ws  -->
+		<dependency org="xmlunit" name="xmlunit" rev="1.4" />
+		<dependency org="org.xmlmatchers" name="xml-matchers" rev="latest.integration" />
 		<dependency org="com.jayway.jsonpath" name="json-path" rev="0.8.1" />
 		<dependency org="com.jayway.jsonpath" name="json-path-assert"
-			rev="0.8.1" />
-	</dependencies>
+			rev="0.8.1" />	</dependencies>
 </ivy-module>

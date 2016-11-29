@@ -56,9 +56,9 @@ import com.sun.jersey.core.util.MultivaluedMapImpl;
  */
 public final class CommonStep {
 
-	@QAFTestStep(description = "COMMENT: {0}")
-	public static void comment(Object args) {
-		System.out.printf("COMMENT: %s \n", args);
+	@QAFTestStep(description = "COMMENT: {value}")
+	public static void comment(Object value) {
+		System.out.printf("COMMENT: %s \n", value);
 	}
 
 	/**
@@ -77,7 +77,7 @@ public final class CommonStep {
 	 *            : {0} : the name of variable you in which want to store last
 	 *            step result
 	 */
-	@QAFTestStep(description = "store into {0}")
+	@QAFTestStep(description = "store into {var}")
 	public static void storeLastStepResultInto(String var) {
 		Object val = getBundle().getProperty("last.step.result");
 		getBundle().addProperty(var, val);
@@ -98,7 +98,7 @@ public final class CommonStep {
 	 * @param var
 	 *            : {1} : variable name
 	 */
-	@QAFTestStep(description = "store {0} into {1}")
+	@QAFTestStep(description = "store {val} into {var}")
 	public static void store(Object val, String var) {
 		getBundle().addProperty(var, val);
 	}
@@ -118,7 +118,7 @@ public final class CommonStep {
 	 *            : {1} : an element locator, can be direct locator value or a
 	 *            locator key stored in locator repository
 	 */
-	@QAFTestStep(description = "sendKeys {0} into {1}")
+	@QAFTestStep(description = "sendKeys {text} into {loc}")
 	public static void sendKeys(String text, String loc) {
 		getElement(loc).sendKeys(text);
 	}
@@ -141,7 +141,7 @@ public final class CommonStep {
 	 *            : {0} : an element locator, can be direct locator value or a
 	 *            locator key stored in locator repository
 	 */
-	@QAFTestStep(description = "assert {0} is present")
+	@QAFTestStep(description = "assert {loc} is present")
 	public static void assertPresent(String loc) {
 		getElement(loc).assertPresent();
 	}
@@ -163,7 +163,7 @@ public final class CommonStep {
 	 * @param linkText
 	 *            : {0} : link text to be verified in browser page.
 	 */
-	@QAFTestStep(description = "assert link with text {0} is present")
+	@QAFTestStep(description = "assert link with text {linkText} is present")
 	public static void assertLinkWithTextPresent(String linkText) {
 		getElement("link=" + linkText).assertPresent();
 	}
@@ -185,7 +185,7 @@ public final class CommonStep {
 	 * @param linkText
 	 *            : {0} : partial link text to be verified in browser page.
 	 */
-	@QAFTestStep(description = "assert link with partial text {0} is present")
+	@QAFTestStep(description = "assert link with partial text {linkText} is present")
 	public static void assertLinkWithPartialTextPresent(String linkText) {
 		getElement("partialLink=" + linkText).assertPresent();
 	}
@@ -206,7 +206,7 @@ public final class CommonStep {
 	 *            : {0} : an element locator, can be direct locator value or a
 	 *            locator key stored in locator repository
 	 */
-	@QAFTestStep(description = "verify {0} is present")
+	@QAFTestStep(description = "verify {loc} is present")
 	public static boolean verifyPresent(String loc) {
 		return getElement(loc).verifyPresent();
 	}
@@ -228,7 +228,7 @@ public final class CommonStep {
 	 * @param linkText
 	 *            : {0} : link text to be verified in browser page.
 	 */
-	@QAFTestStep(description = "verify link with text {0} is present")
+	@QAFTestStep(description = "verify link with text {linkText} is present")
 	public static boolean verifyLinkWithTextPresent(String linkText) {
 		return getElement("link=" + linkText).verifyPresent();
 	}
@@ -251,7 +251,7 @@ public final class CommonStep {
 	 * @param linkText
 	 *            : {0} : partial link text to be verified in browser page.
 	 */
-	@QAFTestStep(description = "verify link with partial text {0} is present")
+	@QAFTestStep(description = "verify link with partial text {linkText} is present")
 	public static boolean verifyLinkWithPartialTextPresent(String linkText) {
 		return getElement("partialLink=" + linkText).verifyPresent();
 	}
@@ -261,7 +261,7 @@ public final class CommonStep {
 	 *            : {0} : an element locator, can be direct locator value or a
 	 *            locator key stored in locator repository
 	 */
-	@QAFTestStep(description = "assert {0} is visible")
+	@QAFTestStep(description = "assert {loc} is visible")
 	public static void assertVisible(String loc) {
 		getElement(loc).assertVisible();
 	}
@@ -284,7 +284,7 @@ public final class CommonStep {
 	 *            : {0} : an element locator, can be direct locator value or a
 	 *            locator key stored in locator repository
 	 */
-	@QAFTestStep(description = "verify {0} is visible")
+	@QAFTestStep(description = "verify {loc} is visible")
 	public static boolean verifyVisible(String loc) {
 		return getElement(loc).verifyVisible();
 	}
@@ -303,7 +303,7 @@ public final class CommonStep {
 	 * @param url
 	 *            : {0} : the URL to open; may be relative or absolute
 	 */
-	@QAFTestStep(description = "get {0}")
+	@QAFTestStep(description = "get {url}")
 	public static void get(String url) {
 		new WebDriverTestBase().getDriver().get(url);
 	}
@@ -318,7 +318,7 @@ public final class CommonStep {
 	 * @param windowNameOrIndex
 	 *            : title or index of the window
 	 */
-	@QAFTestStep(description = "switch to {0} window")
+	@QAFTestStep(description = "switch to {nameOrIndex} window")
 	public static void switchToWindow(String nameOrIndex) {
 		if (StringUtil.isNumeric(nameOrIndex)) {
 			int index = Integer.parseInt(nameOrIndex);
@@ -347,12 +347,12 @@ public final class CommonStep {
 	 * KWD
 	 * </p>
 	 * 
-	 * @param arg1
+	 * @param endpoint
 	 *            : {0} : The URL to be set as end point
 	 */
-	@QAFTestStep(description = "service endpoint is {0}")
-	public static void setServiceEndPoint(String arg1) {
-		getBundle().setProperty("ws.endurl", arg1);
+	@QAFTestStep(description = "service endpoint is {endpoint}")
+	public static void setServiceEndPoint(String endpoint) {
+		getBundle().setProperty("ws.endurl", endpoint);
 	}
 
 	/**
@@ -375,7 +375,7 @@ public final class CommonStep {
 	 * @param params
 	 *            : {1} : parameters
 	 */
-	@QAFTestStep(stepName = "requestForResourceWithParams", description = "user request for resource {0} with {1}")
+	@QAFTestStep(stepName = "requestForResourceWithParams", description = "user request for resource {resource} with {params}")
 	public static void requestForResource(String resource, Map<String, String> params) {
 		requestFor(resource, params);
 	}
@@ -411,7 +411,7 @@ public final class CommonStep {
 	 * @param resource
 	 *            : {0} : resource String
 	 */
-	@QAFTestStep(description = "user request for resource {0}")
+	@QAFTestStep(description = "user request for resource {resource}")
 	public static void requestForResource(String resource) {
 		requestFor(resource, null);
 	}
@@ -435,7 +435,7 @@ public final class CommonStep {
 	 * @param resource
 	 *            : {1} : resource string
 	 */
-	@QAFTestStep(description = "user post {0} for resource {1}")
+	@QAFTestStep(description = "user post {content} for resource {resource}")
 	public static void postContent(String content, String resource) {
 		new RestTestBase().getWebResource(getBundle().getString("ws.endurl"), resource).post(content);
 	}
@@ -458,7 +458,7 @@ public final class CommonStep {
 	 *            : {0} : Status String for Exampe: OK, CREATED
 	 * @see Status
 	 */
-	@QAFTestStep(description = "response should have status {0}")
+	@QAFTestStep(description = "response should have status {status}")
 	public static void response_should_have_status(String status) {
 		assertThat("Response Status", new RestTestBase().getResponse().getStatus().name(),
 				Matchers.equalToIgnoringCase(status));
@@ -482,7 +482,7 @@ public final class CommonStep {
 	 *            : {0} : Status code, for example 200, 301
 	 *  @see Status
 	 */
-	@QAFTestStep(description = "response should have status code {0}")
+	@QAFTestStep(description = "response should have status code {statusCode}")
 	public static void response_should_have_statuscode(int statusCode) {
 		assertThat("Response Status", new RestTestBase().getResponse().getStatus().getStatusCode(),
 				Matchers.equalTo(statusCode));
@@ -505,7 +505,7 @@ public final class CommonStep {
 	 * @param xpath
 	 *            : {0} : xpath string to be verified in respose
 	 */
-	@QAFTestStep(description = "response should have xpath {0}")
+	@QAFTestStep(description = "response should have xpath {xpath}")
 	public static void response_should_have_xpath(String xpath) {
 		assertThat(the(new RestTestBase().getResponse().getMessageBody()), hasXPath(xpath));
 	}
@@ -528,7 +528,7 @@ public final class CommonStep {
 	 *            : {0} : an element locator, can be direct locator value or a
 	 *            locator key stored in locator repository
 	 */
-	@QAFTestStep(description = "clear {0}")
+	@QAFTestStep(description = "clear {loc}")
 	public static void clear(String loc) {
 		getElement(loc).clear();
 	}
@@ -552,7 +552,7 @@ public final class CommonStep {
 	 *            locator key stored in locator repository
 	 * @return The text contains by the specified locator
 	 */
-	@QAFTestStep(description = "get text of {0}")
+	@QAFTestStep(description = "get text of {loc}")
 	public static String getText(String loc) {
 		return getElement(loc).getText();
 	}
@@ -581,7 +581,7 @@ public final class CommonStep {
 	 *            locator key stored in locator repository
 	 */
 
-	@QAFTestStep(description = "submit {0}")
+	@QAFTestStep(description = "submit {loc}")
 	public static void submit(String loc) {
 		getElement(loc).submit();
 
@@ -607,7 +607,7 @@ public final class CommonStep {
 	 *            : {0} : an element locator, can be direct locator value or a
 	 *            locator key stored in locator repository
 	 */
-	@QAFTestStep(description = "click on {0}")
+	@QAFTestStep(description = "click on {loc}")
 	public static void click(String loc) {
 		getElement(loc).click();
 	}
@@ -634,7 +634,7 @@ public final class CommonStep {
 	 *            : {0} : an element locator, can be direct locator value or a
 	 *            locator key stored in locator repository
 	 */
-	@QAFTestStep(description = "wait until {0} to be visible")
+	@QAFTestStep(description = "wait until {loc} to be visible")
 	public static void waitForVisible(String loc) {
 		getElement(loc).waitForVisible();
 	}
@@ -664,7 +664,7 @@ public final class CommonStep {
 	 *            : {0} : an element locator, can be direct locator value or a
 	 *            locator key stored in locator repository
 	 */
-	@QAFTestStep(description = "wait until {0} not to be visible")
+	@QAFTestStep(description = "wait until {loc} not to be visible")
 	public static void waitForNotVisible(String loc) {
 		getElement(loc).waitForNotVisible();
 	}
@@ -694,7 +694,7 @@ public final class CommonStep {
 	 *            : {0} : an element locator, can be direct locator value or a
 	 *            locator key stored in locator repository
 	 */
-	@QAFTestStep(description = "wait until {0} to be disable")
+	@QAFTestStep(description = "wait until {loc} to be disable")
 	public static void waitForDisabled(String loc) {
 		getElement(loc).waitForDisabled();
 	}
@@ -725,7 +725,7 @@ public final class CommonStep {
 	 *            : {0} : an element locator, can be direct locator value or a
 	 *            locator key stored in locator repository
 	 */
-	@QAFTestStep(description = "wait until {0} to be enable")
+	@QAFTestStep(description = "wait until {loc} to be enable")
 	public static void waitForEnabled(String loc) {
 		getElement(loc).waitForEnabled();
 
@@ -757,7 +757,7 @@ public final class CommonStep {
 	 *            : {0} : an element locator, can be direct locator value or a
 	 *            locator key stored in locator repository
 	 */
-	@QAFTestStep(description = "wait until {0} to be present")
+	@QAFTestStep(description = "wait until {loc} to be present")
 	public static void waitForPresent(String loc) {
 		getElement(loc).waitForPresent();
 		;
@@ -790,7 +790,7 @@ public final class CommonStep {
 	 *            : {0} : an element locator, can be direct locator value or a
 	 *            locator key stored in locator repository
 	 */
-	@QAFTestStep(description = "wait until {0} is not present")
+	@QAFTestStep(description = "wait until {loc} is not present")
 	public static void waitForNotPresent(String loc) {
 		getElement(loc).waitForNotPresent();
 
@@ -825,7 +825,7 @@ public final class CommonStep {
 	 * @param text
 	 *            : {1} : The text of element locator
 	 */
-	@QAFTestStep(description = "wait until {0} text {1}")
+	@QAFTestStep(description = "wait until {loc} text {text}")
 	public static void waitForText(String loc, String text) {
 		getElement(loc).waitForText(text);
 
@@ -860,7 +860,7 @@ public final class CommonStep {
 	 * @param text
 	 *            : {1} : The text of element locator
 	 */
-	@QAFTestStep(description = "wait until {0} text is not {1}")
+	@QAFTestStep(description = "wait until {loc} text is not {text}")
 	public static void waitForNotText(String loc, String text) {
 		getElement(loc).waitForNotText(text);
 
@@ -893,7 +893,7 @@ public final class CommonStep {
 	 * @param value
 	 *            : {1} : The object of value for element locator
 	 */
-	@QAFTestStep(description = "wait until {0} value is {1}")
+	@QAFTestStep(description = "wait until {loc} value is {value}")
 	public static void waitForValue(String loc, Object value) {
 		getElement(loc).waitForValue(value);
 	}
@@ -925,7 +925,7 @@ public final class CommonStep {
 	 * @param value
 	 *            : {1} : The object of value for element locator
 	 */
-	@QAFTestStep(description = "wait until {0} value is not {1}")
+	@QAFTestStep(description = "wait until {loc} value is not {value}")
 	public static void waitForNotValue(String loc, Object value) {
 		getElement(loc).waitForNotValue(value);
 
@@ -956,7 +956,7 @@ public final class CommonStep {
 	 *            : {0} : an element locator, can be direct locator value or a
 	 *            locator key stored in locator repository
 	 */
-	@QAFTestStep(description = "wait until {0} to be selected")
+	@QAFTestStep(description = "wait until {loc} to be selected")
 	public static void waitForSelected(String loc) {
 		getElement(loc).waitForSelected();
 	}
@@ -987,7 +987,7 @@ public final class CommonStep {
 	 *            : {0} : an element locator, can be direct locator value or a
 	 *            locator key stored in locator repository
 	 */
-	@QAFTestStep(description = "wait until {0} is not selected")
+	@QAFTestStep(description = "wait until {loc} is not selected")
 	public static void waitForNotSelected(String loc) {
 		getElement(loc).waitForNotSelected();
 
@@ -1023,7 +1023,7 @@ public final class CommonStep {
 	 * @param value
 	 *            : {2} : value of attribute
 	 */
-	@QAFTestStep(description = "wait until {0} for attribute {1} value is {2}")
+	@QAFTestStep(description = "wait until {loc} for attribute {attr} value is {value}")
 	public static void waitForAttribute(String loc, String attr, String value) {
 		getElement(loc).waitForAttribute(attr, value);
 
@@ -1059,7 +1059,7 @@ public final class CommonStep {
 	 * @param value
 	 *            : {2} : value of attribute
 	 */
-	@QAFTestStep(description = "wait until {0} attribute {1} value is not {2}")
+	@QAFTestStep(description = "wait until {loc} attribute {attr} value is not {value}")
 	public static void waitForNotAttribute(String loc, String attr, String value) {
 		getElement(loc).waitForNotAttribute(attr, value);
 	}
@@ -1091,7 +1091,7 @@ public final class CommonStep {
 	 * @param className
 	 *            : {1} : CSS class name to be verified
 	 */
-	@QAFTestStep(description = "wait until {0} css class name is {1}")
+	@QAFTestStep(description = "wait until {loc} css class name is {className}")
 	public static void waitForCssClass(String loc, String className) {
 		getElement(loc).waitForCssClass(className);
 	}
@@ -1123,7 +1123,7 @@ public final class CommonStep {
 	 * @param className
 	 *            : {1} : CSS class name to be verified
 	 */
-	@QAFTestStep(description = "wait until {0} css class name is not {1}")
+	@QAFTestStep(description = "wait until {loc} css class name is not {className}")
 	public static void waitForNotCssClass(String loc, String className) {
 		getElement(loc).waitForNotCssClass(className);
 	}
@@ -1158,7 +1158,7 @@ public final class CommonStep {
 	 * @param value
 	 *            : {2} : value of property (ie. css style property value)
 	 */
-	@QAFTestStep(description = "wait until {0} property {1} value is {2}")
+	@QAFTestStep(description = "wait until {loc} property {prop} value is {value}")
 	public static void waitForCssStyle(String loc, String prop, String value) {
 		getElement(loc).waitForCssStyle(prop, value);
 
@@ -1194,7 +1194,7 @@ public final class CommonStep {
 	 * @param value
 	 *            : {2} : value of property (ie. css style property value)
 	 */
-	@QAFTestStep(description = "wait until {0} property {1} value is not {2}")
+	@QAFTestStep(description = "wait until {loc} property {prop} value is not {value}")
 	public static void waitForNotCssStyle(String loc, String prop, String value) {
 		getElement(loc).waitForNotCssStyle(prop, value);
 
@@ -1227,7 +1227,7 @@ public final class CommonStep {
 	 * @return <b>true</b> if the element locator is present, <b>false</b>
 	 *         otherwise
 	 */
-	@QAFTestStep(description = "verify {0} not present")
+	@QAFTestStep(description = "verify {loc} not present")
 	public static boolean verifyNotPresent(String loc) {
 
 		return getElement(loc).verifyNotPresent();
@@ -1253,7 +1253,7 @@ public final class CommonStep {
 	 * @return <b>true</b> if the element locator is visible, <b>false</b>
 	 *         otherwise
 	 */
-	@QAFTestStep(description = "verify {0} not visible")
+	@QAFTestStep(description = "verify {loc} not visible")
 	public static boolean verifyNotVisible(String loc) {
 		return getElement(loc).verifyNotVisible();
 	}
@@ -1278,7 +1278,7 @@ public final class CommonStep {
 	 * @return <b>true</b> if the element locator is enable, <b>false</b>
 	 *         otherwise
 	 */
-	@QAFTestStep(description = "verify {0} enabled")
+	@QAFTestStep(description = "verify {loc} enabled")
 	public static boolean verifyEnabled(String loc) {
 		return getElement(loc).verifyEnabled();
 	}
@@ -1303,7 +1303,7 @@ public final class CommonStep {
 	 * @return <b>true</b> if the element locator is disabled, <b>false</b>
 	 *         otherwise
 	 */
-	@QAFTestStep(description = "verify {0} disabled")
+	@QAFTestStep(description = "verify {loc} disabled")
 	public static boolean verifyDisabled(String loc) {
 		return getElement(loc).verifyDisabled();
 	}
@@ -1333,7 +1333,7 @@ public final class CommonStep {
 	 *         otherwise
 	 */
 
-	@QAFTestStep(description = "verify {0} text is {1}")
+	@QAFTestStep(description = "verify {loc} text is {text}")
 	public static boolean verifyText(String loc, String text) {
 		return getElement(loc).verifyText(text);
 	}
@@ -1362,7 +1362,7 @@ public final class CommonStep {
 	 * @return <b>true</b> if the element locator text is not verified,
 	 *         <b>false</b> otherwise
 	 */
-	@QAFTestStep(description = "verify {0} text is not {1}")
+	@QAFTestStep(description = "verify {loc} text is not {text}")
 	public static boolean verifyNotText(String loc, String text) {
 		return getElement(loc).verifyNotText(text);
 	}
@@ -1389,9 +1389,9 @@ public final class CommonStep {
 	 * @return <b>true</b> if the element locator type value is verified,
 	 *         <b>false</b> otherwise
 	 */
-	@QAFTestStep(description = "verify {0} value is {1}")
-	public static <T> boolean verifyValue(String loc, T t) {
-		return getElement(loc).verifyValue(t);
+	@QAFTestStep(description = "verify {loc} value is {value}")
+	public static <T> boolean verifyValue(String loc, T value) {
+		return getElement(loc).verifyValue(value);
 	}
 
 	/**
@@ -1416,9 +1416,9 @@ public final class CommonStep {
 	 * @return <b>true</b> if the element locator type value is not verified,
 	 *         <b>false</b> otherwise
 	 */
-	@QAFTestStep(description = "verify {0} value is not {1}")
-	public static <T> boolean verifyNotValue(String loc, T t) {
-		return getElement(loc).verifyNotValue(t);
+	@QAFTestStep(description = "verify {loc} value is not {value}")
+	public static <T> boolean verifyNotValue(String loc, T value) {
+		return getElement(loc).verifyNotValue(value);
 	}
 
 	/**
@@ -1441,7 +1441,7 @@ public final class CommonStep {
 	 * @return <b>true</b> if the element locator is selected, <b>false</b>
 	 *         otherwise
 	 */
-	@QAFTestStep(description = "verify {0} is selected")
+	@QAFTestStep(description = "verify {loc} is selected")
 	public static boolean verifySelected(String loc) {
 
 		return getElement(loc).verifySelected();
@@ -1467,7 +1467,7 @@ public final class CommonStep {
 	 * @return <b>true</b> if the element locator is not selected, <b>false</b>
 	 *         otherwise
 	 */
-	@QAFTestStep(description = "verify {0} is not selected")
+	@QAFTestStep(description = "verify {loc} is not selected")
 	public static boolean verifyNotSelected(String loc) {
 		return getElement(loc).verifyNotSelected(loc);
 	}
@@ -1496,7 +1496,7 @@ public final class CommonStep {
 	 * @return <b>true</b> if the element locator attribute value is verified,
 	 *         <b>false</b> otherwise
 	 */
-	@QAFTestStep(description = "verify {0} attribute {1} value is {2}")
+	@QAFTestStep(description = "verify {loc} attribute {attr} value is {value}")
 	public static boolean verifyAttribute(String loc, String attr, String value) {
 		return getElement(loc).verifyAttribute(attr, value);
 	}
@@ -1525,7 +1525,7 @@ public final class CommonStep {
 	 * @return <b>true</b> if the element locator attribute value is not
 	 *         verified, <b>false</b> otherwise
 	 */
-	@QAFTestStep(description = "verify {0} attribute {1} value is not {2}")
+	@QAFTestStep(description = "verify {loc} attribute {attr} value is not {value}")
 	public static boolean verifyNotAttribute(String loc, String attr, String value) {
 		return getElement(loc).verifyNotAttribute(attr, value);
 	}
@@ -1559,7 +1559,7 @@ public final class CommonStep {
 	 * @return <b>true</b> if the element locator css class name is verified,
 	 *         <b>false</b> otherwise
 	 */
-	@QAFTestStep(description = "verify {0} css class name is {1}")
+	@QAFTestStep(description = "verify {loc} css class name is {className}")
 	public static boolean verifyCssClass(String loc, String className) {
 		return getElement(loc).verifyCssClass(className);
 	}
@@ -1586,7 +1586,7 @@ public final class CommonStep {
 	 * @return <b>true</b> if the element locator css class name is not
 	 *         verified, <b>false</b> otherwise
 	 */
-	@QAFTestStep(description = "verify {0} css class name is not {1}")
+	@QAFTestStep(description = "verify {loc} css class name is not {className}")
 	public static boolean verifyNotCssClass(String loc, String className) {
 		return getElement(loc).verifyNotCssClass(className);
 	}
@@ -1615,7 +1615,7 @@ public final class CommonStep {
 	 * @return <b>true</b> if the element locator property value is verified,
 	 *         <b>false</b> otherwise
 	 */
-	@QAFTestStep(description = "verify {0} property {1} value is {2}")
+	@QAFTestStep(description = "verify {loc} property {prop} value is {value}")
 	public static boolean verifyCssStyle(String loc, String prop, String value) {
 		return getElement(loc).verifyCssStyle(prop, value);
 	}
@@ -1644,7 +1644,7 @@ public final class CommonStep {
 	 * @return <b>true</b> if the element locator property value is not
 	 *         verified, <b>false</b> otherwise
 	 */
-	@QAFTestStep(description = "verify {0} property {1} value is not {2}")
+	@QAFTestStep(description = "verify {loc} property {prop} value is not {value}")
 	public static boolean verifyNotCssStyle(String loc, String prop, String value) {
 		return getElement(loc).verifyNotCssStyle(prop, value);
 	}
@@ -1667,7 +1667,7 @@ public final class CommonStep {
 	 *            : {0} : an element locator, can be direct locator value or a
 	 *            locator key stored in locator repository
 	 */
-	@QAFTestStep(description = "assert {0} is not present")
+	@QAFTestStep(description = "assert {loc} is not present")
 	public static void assertNotPresent(String loc) {
 		getElement(loc).assertNotPresent();
 	}
@@ -1690,7 +1690,7 @@ public final class CommonStep {
 	 *            : {0} : an element locator, can be direct locator value or a
 	 *            locator key stored in locator repository
 	 */
-	@QAFTestStep(description = "assert {0} is not visible")
+	@QAFTestStep(description = "assert {loc} is not visible")
 	public static void assertNotVisible(String loc) {
 		getElement(loc).assertNotVisible();
 	}
@@ -1713,7 +1713,7 @@ public final class CommonStep {
 	 *            : {0} : an element locator, can be direct locator value or a
 	 *            locator key stored in locator repository
 	 */
-	@QAFTestStep(description = "assert {0} is enable")
+	@QAFTestStep(description = "assert {loc} is enable")
 	public static void assertEnabled(String loc) {
 		getElement(loc).assertEnabled();
 	}
@@ -1736,7 +1736,7 @@ public final class CommonStep {
 	 *            : {0} : an element locator, can be direct locator value or a
 	 *            locator key stored in locator repository
 	 */
-	@QAFTestStep(description = "assert {0} is disable")
+	@QAFTestStep(description = "assert {loc} is disable")
 	public static void assertDisabled(String loc) {
 		getElement(loc).assertDisabled();
 	}
@@ -1763,7 +1763,7 @@ public final class CommonStep {
 	 * @param text
 	 *            : {1} : The text of element locator
 	 */
-	@QAFTestStep(description = "assert {0} text is {1}")
+	@QAFTestStep(description = "assert {loc} text is {text}")
 	public static void assertText(String loc, String text) {
 		getElement(loc).assertText(text);
 	}
@@ -1790,7 +1790,7 @@ public final class CommonStep {
 	 * @param text
 	 *            : {1} : The text of element locator
 	 */
-	@QAFTestStep(description = "assert {0} text is not {1}")
+	@QAFTestStep(description = "assert {loc} text is not {text}")
 	public static void assertNotText(String loc, String text) {
 		getElement(loc).assertNotText(text);
 	}
@@ -1816,7 +1816,7 @@ public final class CommonStep {
 	 * @param value
 	 *            : {1} : The value for element locator
 	 */
-	@QAFTestStep(description = "assert {0} value is {1}")
+	@QAFTestStep(description = "assert {loc} value is {value}")
 	public static void assertValue(String loc, String value) {
 		getElement(loc).assertValue(value);
 	}
@@ -1842,9 +1842,9 @@ public final class CommonStep {
 	 * @param value
 	 *            : {1} : The object of value for element locator
 	 */
-	@QAFTestStep(description = "assert {0} value is not {1}")
-	public static <T> void assertNotValue(String loc, T t) {
-		getElement(loc).assertNotValue(t);
+	@QAFTestStep(description = "assert {loc} value is not {value}")
+	public static <T> void assertNotValue(String loc, T value) {
+		getElement(loc).assertNotValue(value);
 	}
 
 	/**
@@ -1865,7 +1865,7 @@ public final class CommonStep {
 	 *            : {0} : an element locator, can be direct locator value or a
 	 *            locator key stored in locator repository
 	 */
-	@QAFTestStep(description = "assert {0} is selected")
+	@QAFTestStep(description = "assert {loc} is selected")
 	public static void assertSelected(String loc) {
 		getElement(loc).assertSelected();
 	}
@@ -1888,7 +1888,7 @@ public final class CommonStep {
 	 *            : {0} : an element locator, can be direct locator value or a
 	 *            locator key stored in locator repository
 	 */
-	@QAFTestStep(description = "assert {0} is not selected")
+	@QAFTestStep(description = "assert {loc} is not selected")
 	public static void assertNotSelected(String loc) {
 		getElement(loc).assertNotSelected();
 	}
@@ -1915,7 +1915,7 @@ public final class CommonStep {
 	 * @param value
 	 *            : {2} : value of attribute
 	 */
-	@QAFTestStep(description = "assert {0} attribute {1} value is {2}")
+	@QAFTestStep(description = "assert {loc} attribute {attr} value is {value}")
 	public static void assertAttribute(String loc, String attr, String value) {
 		getElement(loc).assertAttribute(attr, value);
 	}
@@ -1942,7 +1942,7 @@ public final class CommonStep {
 	 * @param value
 	 *            : {2} : value of attribute
 	 */
-	@QAFTestStep(description = "assert {0} attribute {1} value is not {2}")
+	@QAFTestStep(description = "assert {loc} attribute {attr} value is not {value}")
 	public static void assertNotAttribute(String loc, String attr, String value) {
 		getElement(loc).assertNotAttribute(attr, value);
 	}
@@ -1972,7 +1972,7 @@ public final class CommonStep {
 	 * @param className
 	 *            : {1} : css class name to be asserted
 	 */
-	@QAFTestStep(description = "assert {0} css class name is {1}")
+	@QAFTestStep(description = "assert {loc} css class name is {className}")
 	public static void assertCssClass(String loc, String className) {
 		getElement(loc).assertCssClass(className);
 	}
@@ -1997,7 +1997,7 @@ public final class CommonStep {
 	 * @param className
 	 *            : {1} : css class name not to be asserted
 	 */
-	@QAFTestStep(description = "assert {0} css class name is not {1}")
+	@QAFTestStep(description = "assert {loc} css class name is not {className}")
 	public static void assertNotCssClass(String loc, String className) {
 		getElement(loc).assertNotCssClass(className);
 	}
@@ -2024,7 +2024,7 @@ public final class CommonStep {
 	 * @param value
 	 *            : {2} : value of property (i.e css style property value)
 	 */
-	@QAFTestStep(description = "assert {0} property {1} value is {2}")
+	@QAFTestStep(description = "assert {loc} property {prop} value is {value}")
 	public static void assertCssStyle(String loc, String prop, String value) {
 		getElement(loc).assertCssStyle(prop, value);
 	}
@@ -2051,7 +2051,7 @@ public final class CommonStep {
 	 * @param value
 	 *            : {2} : value of property (i.e css style property value)
 	 */
-	@QAFTestStep(description = "assert {0} property {1} value is not {2}")
+	@QAFTestStep(description = "assert {loc} property {prop} value is not {value}")
 	public static void assertNotCssStyle(String loc, String prop, String value) {
 		getElement(loc).assertNotCssStyle(prop, value);
 	}
@@ -2078,7 +2078,7 @@ public final class CommonStep {
 	 * @param value
 	 *            : {2} : value of attribute
 	 */
-	@QAFTestStep(description = "set {0} attribute {1} value is {2}")
+	@QAFTestStep(description = "set {loc} attribute {attr} value is {value}")
 	public static void setAttribute(String loc, String attr, String value) {
 		getElement(loc).setAttribute(attr, value);
 	}
@@ -2091,7 +2091,7 @@ public final class CommonStep {
 	 * @param value
 	 *            : {1} value of the cookie
 	 */
-	@QAFTestStep(description = "add cookie {0} with value {1}")
+	@QAFTestStep(description = "add cookie {name} with value {value}")
 	public static void addCookie(String name, String value) {
 		Cookie cookie = new Cookie(name, value);
 		new WebDriverTestBase().getDriver().manage().addCookie(cookie);
@@ -2104,7 +2104,7 @@ public final class CommonStep {
 	 * @param name
 	 *            : {0} name of the cookie to be deleted
 	 */
-	@QAFTestStep(description = "delete cookie with name {0}")
+	@QAFTestStep(description = "delete cookie with name {name}")
 	public static void deleteCookie(String name) {
 		new WebDriverTestBase().getDriver().manage().deleteCookieNamed(name);
 	}
@@ -2123,12 +2123,12 @@ public final class CommonStep {
 	 * @param name
 	 *            : {0} name of the cookie
 	 */
-	@QAFTestStep(description = "get a cookie with a name {0}")
+	@QAFTestStep(description = "get a cookie with a name {name}")
 	public static void getCookieValue(String name) {
 		new WebDriverTestBase().getDriver().manage().getCookieNamed(name).getValue();
 	}
 
-	@QAFTestStep(description = "mouse move on {0}")
+	@QAFTestStep(description = "mouse move on {loc}")
 	public static void mouseOver(String loc) {
 		new WebDriverTestBase().getDriver().getMouse().mouseMove(getElement(loc).getCoordinates());
 	}
@@ -2142,8 +2142,20 @@ public final class CommonStep {
 	 * @param threshold
 	 */
 	@MetaData("{'qafstep-transaction':true}")
-	@QAFTestStep(description = "start (transaction|time-tracker) for {task-name} with {second}s threshold")
+	@QAFTestStep(stepName="startTransactionWithThreshold", description = "start (transaction|time-tracker) for {task-name} with {second}s threshold")
 	public static void startTransaction(String name, int threshold) {
+
+	}
+	
+	/**
+	 * Start time tracking which can be stopped by subsequent call to
+	 * {@link #stopTransaction()}. It will group all steps and track time.
+	 * 
+	 * @param name
+	 */
+	@MetaData("{'qafstep-transaction':true}")
+	@QAFTestStep(description = "start (transaction|time-tracker) for {task-name}")
+	public static void startTransaction(String name) {
 
 	}
 
