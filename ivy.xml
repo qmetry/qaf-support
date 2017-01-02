@@ -20,7 +20,7 @@
 		<dependency org="org.aspectj" name="aspectjtools" rev="1.8.5">
 			<artifact name="aspectjtools" type="jar"></artifact>
 		</dependency>
-				
+		<dependency org="io.appium" name="java-client" rev="4.1.2"/>			
 		<!--  ws  -->
 		<dependency org="xmlunit" name="xmlunit" rev="1.4" />
 		<dependency org="org.xmlmatchers" name="xml-matchers" rev="latest.integration" />

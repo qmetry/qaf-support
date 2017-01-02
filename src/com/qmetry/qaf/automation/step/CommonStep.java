@@ -37,6 +37,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import org.hamcrest.Matchers;
 import org.openqa.selenium.Cookie;
+import org.openqa.selenium.WebElement;
 
 import com.qmetry.qaf.automation.data.MetaData;
 import com.qmetry.qaf.automation.keys.ApplicationProperties;
@@ -48,6 +49,7 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.ClientResponse.Status;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
+import io.appium.java_client.AppiumDriver;
 
 /**
  * com.qmetry.qaf.automation.step.CommonStep.java
@@ -2163,6 +2165,44 @@ public final class CommonStep {
 	@QAFTestStep(description = "stop (transaction|time-tracker)")
 	public static void stopTransaction() {
 
+	}
+	
+	/**
+	 * Press and hold the at an absolute position on the screen until the
+	 * context menu event has fired.
+	 *
+	 * @param x
+	 *            x coordinate.
+	 * @param y
+	 *            y coordinate.
+	 * @param duration
+	 *            of the long-press, in milliseconds.
+	 */
+	@QAFTestStep(stepName = "longPress", description = "longPress on {x} {y} for {duration} duration")
+	public static void longPress(int x, int y, int duration) {
+		getDriver().tap(1, x, y, duration);
+	}
+
+	/**
+	 * Creates the swiping action. It is supposed to be performed inside the
+	 * given element.
+	 *
+	 * @param startX
+	 * @param startY
+	 * @param endX
+	 * @param endY
+	 * @param duration
+	 *            of the swipe, in milliseconds.
+	 */
+	@QAFTestStep(stepName = "swipe", description = "swipe from {startX},{startY} to {endX},{endY} in {duration} duration")
+	public static void swipe(int startX, int startY, int endX, int endY, int duration) {
+		getDriver().swipe(startX, startY, endX, endY, duration);
+	}
+
+	@SuppressWarnings("unchecked")
+	public static AppiumDriver<WebElement> getDriver() {
+		return ((AppiumDriver) new WebDriverTestBase().getDriver()
+				.getUnderLayingDriver());
 	}
 
 }
