@@ -21,7 +21,6 @@
  * For any inquiry or need additional information, please contact support-qaf@infostretch.com
  *******************************************************************************/
 
-
 package com.qmetry.qaf.automation.step;
 
 import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
@@ -463,7 +462,7 @@ public final class CommonStep {
 		assertThat("Response Status", new RestTestBase().getResponse().getStatus().name(),
 				Matchers.equalToIgnoringCase(status));
 	}
-	
+
 	/**
 	 * This method check for the response status of web service
 	 * <p>
@@ -480,7 +479,7 @@ public final class CommonStep {
 	 * 
 	 * @param status
 	 *            : {0} : Status code, for example 200, 301
-	 *  @see Status
+	 * @see Status
 	 */
 	@QAFTestStep(description = "response should have status code {statusCode}")
 	public static void response_should_have_statuscode(int statusCode) {
@@ -2142,11 +2141,11 @@ public final class CommonStep {
 	 * @param threshold
 	 */
 	@MetaData("{'qafstep-transaction':true}")
-	@QAFTestStep(stepName="startTransactionWithThreshold", description = "start (transaction|time-tracker) for {task-name} with {second}s threshold")
+	@QAFTestStep(stepName = "startTransactionWithThreshold", description = "start (transaction|time-tracker) for {task-name} with {second}s threshold")
 	public static void startTransaction(String name, int threshold) {
 
 	}
-	
+
 	/**
 	 * Start time tracking which can be stopped by subsequent call to
 	 * {@link #stopTransaction()}. It will group all steps and track time.
@@ -2163,6 +2162,37 @@ public final class CommonStep {
 	@QAFTestStep(description = "stop (transaction|time-tracker)")
 	public static void stopTransaction() {
 
+	}
+
+	/**
+	 * 
+	 * @param locator
+	 *            - locator of frame
+	 * @return
+	 */
+	@QAFTestStep(stepName = "switchToFrame", description = "switch to frame {0}")
+	public static Object switchToFrame(String locator) {
+		return new WebDriverTestBase().getDriver().switchTo().frame(new QAFExtendedWebElement(locator));
+	}
+
+	/**
+	 * switches the webdriver context to the parent frame
+	 * @return
+	 */
+	@QAFTestStep(stepName = "switchToParentFrame", description = "switch to parent frame")
+	public static Object switchToParentFrame() {
+		return new WebDriverTestBase().getDriver().switchTo().parentFrame();
+	}
+
+	/**
+	 * switched to the defult window. Generally used to come out of any frame
+	 * context
+	 * 
+	 * @return
+	 */
+	@QAFTestStep(stepName = "switchToDefaultWindow", description = "switch to default window")
+	public static Object switchToDefaultWindow() {
+		return new WebDriverTestBase().getDriver().switchTo().defaultContent();
 	}
 
 }
