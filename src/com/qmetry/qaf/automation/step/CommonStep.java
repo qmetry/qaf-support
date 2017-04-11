@@ -1,24 +1,30 @@
 /*******************************************************************************
- * QMetry Automation Framework provides a powerful and versatile platform to author 
- * Automated Test Cases in Behavior Driven, Keyword Driven or Code Driven approach
- *                
+ * QMetry Automation Framework provides a powerful and versatile platform to
+ * author
+ * Automated Test Cases in Behavior Driven, Keyword Driven or Code Driven
+ * approach
  * Copyright 2016 Infostretch Corporation
- *
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- *
- * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR
- * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT
- * OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
- *
- * You should have received a copy of the GNU General Public License along with this program in the name of LICENSE.txt in the root folder of the distribution. If not, see https://opensource.org/licenses/gpl-3.0.html
- *
- * See the NOTICE.TXT file in root folder of this source files distribution 
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or any later version.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ * DAMAGES OR
+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT
+ * OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE
+ * You should have received a copy of the GNU General Public License along with
+ * this program in the name of LICENSE.txt in the root folder of the
+ * distribution. If not, see https://opensource.org/licenses/gpl-3.0.html
+ * See the NOTICE.TXT file in root folder of this source files distribution
  * for additional information regarding copyright ownership and licenses
  * of other open source software / files used by QMetry Automation Framework.
- *
- * For any inquiry or need additional information, please contact support-qaf@infostretch.com
+ * For any inquiry or need additional information, please contact
+ * support-qaf@infostretch.com
  *******************************************************************************/
 
 package com.qmetry.qaf.automation.step;
@@ -37,8 +43,10 @@ import javax.ws.rs.core.MultivaluedMap;
 import org.hamcrest.Matchers;
 import org.openqa.selenium.Cookie;
 
+import com.qmetry.qaf.automation.core.TestBaseProvider;
 import com.qmetry.qaf.automation.data.MetaData;
 import com.qmetry.qaf.automation.keys.ApplicationProperties;
+import com.qmetry.qaf.automation.ui.JsToolkit;
 import com.qmetry.qaf.automation.ui.WebDriverTestBase;
 import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebElement;
 import com.qmetry.qaf.automation.util.StringUtil;
@@ -308,6 +316,30 @@ public final class CommonStep {
 	}
 
 	/**
+	 * Switch from one driver to another and visa-versa during the test.
+	 * <p>
+	 * This will create a driver session if given driver is not available in
+	 * current thread. Note that it will not tear-down the current driver
+	 * session.
+	 * <p>
+	 * It is useful for some use cases involving browser and device
+	 * - There are some use cases involving more than 2 devices/browsers (ex.:
+	 * video conference)
+	 * <p>
+	 * For single driver in entire test case you don't required to use
+	 * this method.
+	 * 
+	 * @since 2.1.11
+	 * @param driverName
+	 *            : driver name to create driver object. Refer QAF documentation
+	 *            to understand what can be the driver name
+	 */
+	@QAFTestStep(description = "switch to {driverName}")
+	public static void switchDriver(String driverName) {
+		TestBaseProvider.instance().get().setDriver(driverName);
+	}
+
+	/**
 	 * Switch the context to the driver to new window Example:<br/>
 	 * <code>
 	 * switchToWindow '2'<br/>
@@ -381,7 +413,9 @@ public final class CommonStep {
 
 	private static void requestFor(String resource, Map<String, String> params) {
 		WebResource webResource = new RestTestBase().getWebResource(
-				getBundle().getString("ws.endurl", ApplicationProperties.SELENIUM_BASE_URL.getStringVal()), resource);
+				getBundle().getString("ws.endurl",
+						ApplicationProperties.SELENIUM_BASE_URL.getStringVal()),
+				resource);
 		if (null != params && !params.isEmpty()) {
 			MultivaluedMap<String, String> mparams = new MultivaluedMapImpl();
 
@@ -436,7 +470,8 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "user post {content} for resource {resource}")
 	public static void postContent(String content, String resource) {
-		new RestTestBase().getWebResource(getBundle().getString("ws.endurl"), resource).post(content);
+		new RestTestBase().getWebResource(getBundle().getString("ws.endurl"), resource)
+				.post(content);
 	}
 
 	/**
@@ -483,7 +518,8 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "response should have status code {statusCode}")
 	public static void response_should_have_statuscode(int statusCode) {
-		assertThat("Response Status", new RestTestBase().getResponse().getStatus().getStatusCode(),
+		assertThat("Response Status",
+				new RestTestBase().getResponse().getStatus().getStatusCode(),
 				Matchers.equalTo(statusCode));
 	}
 
@@ -506,7 +542,8 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "response should have xpath {xpath}")
 	public static void response_should_have_xpath(String xpath) {
-		assertThat(the(new RestTestBase().getResponse().getMessageBody()), hasXPath(xpath));
+		assertThat(the(new RestTestBase().getResponse().getMessageBody()),
+				hasXPath(xpath));
 	}
 
 	/**
@@ -758,8 +795,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "wait until {loc} to be present")
 	public static void waitForPresent(String loc) {
-		getElement(loc).waitForPresent();
-		;
+		getElement(loc).waitForPresent();;
 
 	}
 
@@ -1065,7 +1101,8 @@ public final class CommonStep {
 
 	// @QAFTestStep(stepName = "waitForNotAttributeWithTimeout", description =
 	// "wait {3}sec for {0} attribute {1} value is not {2}")
-	public static void waitForNotAttribute(String loc, String attr, String value, long sec) {
+	public static void waitForNotAttribute(String loc, String attr, String value,
+			long sec) {
 		getElement(loc).waitForAttribute(attr, value, sec * 1000);
 	}
 
@@ -1201,7 +1238,8 @@ public final class CommonStep {
 
 	// @QAFTestStep(stepName = "waitForNotCssStyleWithTimeout", description =
 	// "wait {3}sec for {0} css property {1} vaule is {2} ")
-	public static void waitForNotCssStyle(String loc, String prop, String value, long sec) {
+	public static void waitForNotCssStyle(String loc, String prop, String value,
+			long sec) {
 		getElement(loc).waitForNotCssStyle(prop, value, sec * 1000);
 
 	}
@@ -1232,6 +1270,40 @@ public final class CommonStep {
 		return getElement(loc).verifyNotPresent();
 	}
 
+	/**
+	 * Will check and wait until in-progress AJAX call get completed from any of
+	 * the {@link JsToolkit}. If you know the toolkit used in your AUT use
+	 * {@link #waitForAjaxToComplete(String)}
+	 */
+	@QAFTestStep(description = "wait until ajax call complete")
+	public static void waitForAjaxToComplete() {
+		new WebDriverTestBase().getDriver().waitForAjax();
+	}
+
+	/**
+	 * Will check and wait until in-progress AJAX call get completed from
+	 * provide toolkit. Following are supported toolkit:
+	 * <ul>
+	 * <li>
+	 * DOJO
+	 * <li>
+	 * EXTJS
+	 * <li>
+	 * JQUERY
+	 * <li>
+	 * YUI
+	 * <li>
+	 * PHPJS
+	 * <li>
+	 * PROTOTYPE
+	 * 
+	 * @param jstoolkit
+	 *            must be one of the {@link JsToolkit}
+	 */
+	@QAFTestStep(description = "wait until {jstoolkit} ajax call complete")
+	public static void waitForAjaxToComplete(String jstoolkit) {
+		new WebDriverTestBase().getDriver().waitForAjax(JsToolkit.valueOf(jstoolkit));
+	}
 	/**
 	 * Assert that the specified element is not visible somewhere on the page
 	 * <p>
@@ -2129,7 +2201,8 @@ public final class CommonStep {
 
 	@QAFTestStep(description = "mouse move on {loc}")
 	public static void mouseOver(String loc) {
-		new WebDriverTestBase().getDriver().getMouse().mouseMove(getElement(loc).getCoordinates());
+		new WebDriverTestBase().getDriver().getMouse()
+				.mouseMove(getElement(loc).getCoordinates());
 	}
 
 	/**
@@ -2165,18 +2238,19 @@ public final class CommonStep {
 	}
 
 	/**
-	 * 
 	 * @param locator
 	 *            - locator of frame
 	 * @return
 	 */
 	@QAFTestStep(stepName = "switchToFrame", description = "switch to frame {0}")
 	public static Object switchToFrame(String locator) {
-		return new WebDriverTestBase().getDriver().switchTo().frame(new QAFExtendedWebElement(locator));
+		return new WebDriverTestBase().getDriver().switchTo()
+				.frame(new QAFExtendedWebElement(locator));
 	}
 
 	/**
 	 * switches the webdriver context to the parent frame
+	 * 
 	 * @return
 	 */
 	@QAFTestStep(stepName = "switchToParentFrame", description = "switch to parent frame")
