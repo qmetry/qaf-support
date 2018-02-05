@@ -48,6 +48,7 @@ import com.qmetry.qaf.automation.data.MetaData;
 import com.qmetry.qaf.automation.keys.ApplicationProperties;
 import com.qmetry.qaf.automation.ui.JsToolkit;
 import com.qmetry.qaf.automation.ui.WebDriverTestBase;
+import static com.qmetry.qaf.automation.ui.webdriver.ElementFactory.$;
 import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebElement;
 import com.qmetry.qaf.automation.util.StringUtil;
 import com.qmetry.qaf.automation.ws.rest.RestTestBase;
@@ -127,7 +128,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "sendKeys {text} into {loc}")
 	public static void sendKeys(String text, String loc) {
-		getElement(loc).sendKeys(text);
+		$(loc).sendKeys(text);
 	}
 
 	/**
@@ -150,7 +151,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "assert {loc} is present")
 	public static void assertPresent(String loc) {
-		getElement(loc).assertPresent();
+		$(loc).assertPresent();
 	}
 
 	/**
@@ -172,7 +173,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "assert link with text {linkText} is present")
 	public static void assertLinkWithTextPresent(String linkText) {
-		getElement("link=" + linkText).assertPresent();
+		$("link=" + linkText).assertPresent();
 	}
 
 	/**
@@ -194,7 +195,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "assert link with partial text {linkText} is present")
 	public static void assertLinkWithPartialTextPresent(String linkText) {
-		getElement("partialLink=" + linkText).assertPresent();
+		$("partialLink=" + linkText).assertPresent();
 	}
 
 	/**
@@ -215,7 +216,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "verify {loc} is present")
 	public static boolean verifyPresent(String loc) {
-		return getElement(loc).verifyPresent();
+		return $(loc).verifyPresent();
 	}
 
 	/**
@@ -237,7 +238,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "verify link with text {linkText} is present")
 	public static boolean verifyLinkWithTextPresent(String linkText) {
-		return getElement("link=" + linkText).verifyPresent();
+		return $("link=" + linkText).verifyPresent();
 	}
 
 	/**
@@ -260,7 +261,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "verify link with partial text {linkText} is present")
 	public static boolean verifyLinkWithPartialTextPresent(String linkText) {
-		return getElement("partialLink=" + linkText).verifyPresent();
+		return $("partialLink=" + linkText).verifyPresent();
 	}
 
 	/**
@@ -270,7 +271,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "assert {loc} is visible")
 	public static void assertVisible(String loc) {
-		getElement(loc).assertVisible();
+		$(loc).assertVisible();
 	}
 
 	/**
@@ -293,7 +294,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "verify {loc} is visible")
 	public static boolean verifyVisible(String loc) {
-		return getElement(loc).verifyVisible();
+		return $(loc).verifyVisible();
 	}
 
 	/**
@@ -566,7 +567,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "clear {loc}")
 	public static void clear(String loc) {
-		getElement(loc).clear();
+		$(loc).clear();
 	}
 
 	/**
@@ -590,11 +591,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "get text of {loc}")
 	public static String getText(String loc) {
-		return getElement(loc).getText();
-	}
-
-	private static QAFExtendedWebElement getElement(String loc) {
-		return new QAFExtendedWebElement(loc);
+		return $(loc).getText();
 	}
 
 	/**
@@ -619,7 +616,7 @@ public final class CommonStep {
 
 	@QAFTestStep(description = "submit {loc}")
 	public static void submit(String loc) {
-		getElement(loc).submit();
+		$(loc).submit();
 
 	}
 
@@ -645,7 +642,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "click on {loc}")
 	public static void click(String loc) {
-		getElement(loc).click();
+		$(loc).click();
 	}
 
 	/**
@@ -672,13 +669,13 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "wait until {loc} to be visible")
 	public static void waitForVisible(String loc) {
-		getElement(loc).waitForVisible();
+		$(loc).waitForVisible();
 	}
 
 	// @QAFTestStep(stepName = "waitForVisibleWithTimeout", description =
 	// "wait {1}sec for {0} to be visible")
 	public static void waitForVisible(String loc, long sec) {
-		getElement(loc).waitForVisible(sec * 1000);
+		$(loc).waitForVisible(sec * 1000);
 	}
 
 	/**
@@ -702,13 +699,13 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "wait until {loc} not to be visible")
 	public static void waitForNotVisible(String loc) {
-		getElement(loc).waitForNotVisible();
+		$(loc).waitForNotVisible();
 	}
 
 	// @QAFTestStep(stepName = "waitForNotVisibleWithTimeout", description =
 	// "wait {1}sec for {0} not to be visible")
 	public static void waitForNotVisible(String loc, long sec) {
-		getElement(loc).waitForNotVisible(sec * 1000);
+		$(loc).waitForNotVisible(sec * 1000);
 	}
 
 	/**
@@ -732,13 +729,13 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "wait until {loc} to be disable")
 	public static void waitForDisabled(String loc) {
-		getElement(loc).waitForDisabled();
+		$(loc).waitForDisabled();
 	}
 
 	// @QAFTestStep(stepName = "waitForDisableWithTimeout", description =
 	// "wait {1}sec for {0} to be Disable")
 	public static void waitForDisabled(String loc, long sec) {
-		getElement(loc).waitForDisabled(sec * 1000);
+		$(loc).waitForDisabled(sec * 1000);
 
 	}
 
@@ -763,14 +760,14 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "wait until {loc} to be enable")
 	public static void waitForEnabled(String loc) {
-		getElement(loc).waitForEnabled();
+		$(loc).waitForEnabled();
 
 	}
 
 	// @QAFTestStep(stepName = "waitForEnableWithTimeout", description =
 	// "wait {1}sec for {0} to be Enable")
 	public static void waitForEnabled(String loc, long sec) {
-		getElement(loc).waitForEnabled(sec * 1000);
+		$(loc).waitForEnabled(sec * 1000);
 
 	}
 
@@ -795,14 +792,14 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "wait until {loc} to be present")
 	public static void waitForPresent(String loc) {
-		getElement(loc).waitForPresent();;
+		$(loc).waitForPresent();;
 
 	}
 
 	// @QAFTestStep(stepName = "waitForPresentWithTimeout", description =
 	// "wait {1}sec for {0} to be Present")
 	public static void waitForPresent(String loc, long sec) {
-		getElement(loc).waitForPresent(sec * 1000);
+		$(loc).waitForPresent(sec * 1000);
 
 	}
 
@@ -827,14 +824,14 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "wait until {loc} is not present")
 	public static void waitForNotPresent(String loc) {
-		getElement(loc).waitForNotPresent();
+		$(loc).waitForNotPresent();
 
 	}
 
 	// @QAFTestStep(stepName = "waitForNotPresentWithTimeout", description =
 	// "wait {1}sec for {0} is not Present")
 	public static void waitForNotPresent(String loc, long sec) {
-		getElement(loc).waitForNotPresent(sec * 1000);
+		$(loc).waitForNotPresent(sec * 1000);
 
 	}
 
@@ -862,14 +859,14 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "wait until {loc} text {text}")
 	public static void waitForText(String loc, String text) {
-		getElement(loc).waitForText(text);
+		$(loc).waitForText(text);
 
 	}
 
 	// @QAFTestStep(stepName = "waitForTextWithTimeout", description =
 	// "wait {2}sec for {0} text is {1}")
 	public static void waitForText(String loc, String text, long sec) {
-		getElement(loc).waitForText(text, sec * 1000);
+		$(loc).waitForText(text, sec * 1000);
 
 	}
 
@@ -897,14 +894,14 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "wait until {loc} text is not {text}")
 	public static void waitForNotText(String loc, String text) {
-		getElement(loc).waitForNotText(text);
+		$(loc).waitForNotText(text);
 
 	}
 
 	// @QAFTestStep(stepName = "waitForNotTextWithTimeout", description =
 	// "wait {2}sec for {0} text is not {1}")
 	public static void waitForNotText(String loc, String text, long sec) {
-		getElement(loc).waitForNotText(text, sec * 1000);
+		$(loc).waitForNotText(text, sec * 1000);
 	}
 
 	/**
@@ -930,13 +927,13 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "wait until {loc} value is {value}")
 	public static void waitForValue(String loc, Object value) {
-		getElement(loc).waitForValue(value);
+		$(loc).waitForValue(value);
 	}
 
 	// @QAFTestStep(stepName = "waitForValueWithTimeout", description =
 	// "wait {2}sec for {0} value is {1}")
 	public static void waitForValue(String loc, Object value, long sec) {
-		getElement(loc).waitForValue(value, sec * 1000);
+		$(loc).waitForValue(value, sec * 1000);
 	}
 
 	/**
@@ -962,14 +959,14 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "wait until {loc} value is not {value}")
 	public static void waitForNotValue(String loc, Object value) {
-		getElement(loc).waitForNotValue(value);
+		$(loc).waitForNotValue(value);
 
 	}
 
 	// @QAFTestStep(stepName = "waitForNotValueWithTimeout", description =
 	// "wait {2}sec for {0} value is not {1}")
 	public static void waitForNotValue(String loc, Object value, long sec) {
-		getElement(loc).waitForNotValue(value, sec * 1000);
+		$(loc).waitForNotValue(value, sec * 1000);
 	}
 
 	/**
@@ -993,13 +990,13 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "wait until {loc} to be selected")
 	public static void waitForSelected(String loc) {
-		getElement(loc).waitForSelected();
+		$(loc).waitForSelected();
 	}
 
 	// @QAFTestStep(stepName = "waitForSelectedWithTimeout", description =
 	// "wait {1}sec for {0} to be selected")
 	public static void waitForSelected(String loc, long sec) {
-		getElement(loc).waitForSelected(sec * 1000);
+		$(loc).waitForSelected(sec * 1000);
 
 	}
 
@@ -1024,14 +1021,14 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "wait until {loc} is not selected")
 	public static void waitForNotSelected(String loc) {
-		getElement(loc).waitForNotSelected();
+		$(loc).waitForNotSelected();
 
 	}
 
 	// @QAFTestStep(stepName = "waitForNotSelectedWithTimeout", description =
 	// "wait {1}sec for {0} is not selected")
 	public static void waitForNotSelected(String loc, long sec) {
-		getElement(loc).waitForNotSelected(sec * 1000);
+		$(loc).waitForNotSelected(sec * 1000);
 
 	}
 
@@ -1060,14 +1057,14 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "wait until {loc} for attribute {attr} value is {value}")
 	public static void waitForAttribute(String loc, String attr, String value) {
-		getElement(loc).waitForAttribute(attr, value);
+		$(loc).waitForAttribute(attr, value);
 
 	}
 
 	// @QAFTestStep(stepName = "waitForAttributeWithTimeout", description =
 	// "wait {3}sec for {0} attribute {1} value is {2}")
 	public static void waitForAttribute(String loc, String attr, String value, long sec) {
-		getElement(loc).waitForAttribute(attr, value, sec * 1000);
+		$(loc).waitForAttribute(attr, value, sec * 1000);
 
 	}
 
@@ -1096,14 +1093,14 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "wait until {loc} attribute {attr} value is not {value}")
 	public static void waitForNotAttribute(String loc, String attr, String value) {
-		getElement(loc).waitForNotAttribute(attr, value);
+		$(loc).waitForNotAttribute(attr, value);
 	}
 
 	// @QAFTestStep(stepName = "waitForNotAttributeWithTimeout", description =
 	// "wait {3}sec for {0} attribute {1} value is not {2}")
 	public static void waitForNotAttribute(String loc, String attr, String value,
 			long sec) {
-		getElement(loc).waitForAttribute(attr, value, sec * 1000);
+		$(loc).waitForAttribute(attr, value, sec * 1000);
 	}
 
 	/**
@@ -1129,13 +1126,13 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "wait until {loc} css class name is {className}")
 	public static void waitForCssClass(String loc, String className) {
-		getElement(loc).waitForCssClass(className);
+		$(loc).waitForCssClass(className);
 	}
 
 	// @QAFTestStep(stepName = "waitForCssClassWithTimeout", description =
 	// "wait {2}sec for {0} css class name is {1}")
 	public static void waitForCssClass(String loc, String className, long sec) {
-		getElement(loc).waitForCssClass(className, sec * 1000);
+		$(loc).waitForCssClass(className, sec * 1000);
 	}
 
 	/**
@@ -1161,13 +1158,13 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "wait until {loc} css class name is not {className}")
 	public static void waitForNotCssClass(String loc, String className) {
-		getElement(loc).waitForNotCssClass(className);
+		$(loc).waitForNotCssClass(className);
 	}
 
 	// @QAFTestStep(stepName = "waitForNotCssClassWithTimeout", description =
 	// "wait {2}sec for {0} css class name is not {1} ")
 	public static void waitForNotCssClass(String loc, String className, long sec) {
-		getElement(loc).waitForCssClass(className, sec * 1000);
+		$(loc).waitForCssClass(className, sec * 1000);
 
 	}
 
@@ -1196,14 +1193,14 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "wait until {loc} property {prop} value is {value}")
 	public static void waitForCssStyle(String loc, String prop, String value) {
-		getElement(loc).waitForCssStyle(prop, value);
+		$(loc).waitForCssStyle(prop, value);
 
 	}
 
 	// @QAFTestStep(stepName = "waitForCssStyleWithTimeout", description =
 	// "wait {3}sec for {0} property {1} value is {2} ")
 	public static void waitForCssStyle(String loc, String prop, String value, long sec) {
-		getElement(loc).waitForCssStyle(prop, value, sec * 1000);
+		$(loc).waitForCssStyle(prop, value, sec * 1000);
 
 	}
 
@@ -1232,7 +1229,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "wait until {loc} property {prop} value is not {value}")
 	public static void waitForNotCssStyle(String loc, String prop, String value) {
-		getElement(loc).waitForNotCssStyle(prop, value);
+		$(loc).waitForNotCssStyle(prop, value);
 
 	}
 
@@ -1240,7 +1237,7 @@ public final class CommonStep {
 	// "wait {3}sec for {0} css property {1} vaule is {2} ")
 	public static void waitForNotCssStyle(String loc, String prop, String value,
 			long sec) {
-		getElement(loc).waitForNotCssStyle(prop, value, sec * 1000);
+		$(loc).waitForNotCssStyle(prop, value, sec * 1000);
 
 	}
 
@@ -1267,7 +1264,7 @@ public final class CommonStep {
 	@QAFTestStep(description = "verify {loc} not present")
 	public static boolean verifyNotPresent(String loc) {
 
-		return getElement(loc).verifyNotPresent();
+		return $(loc).verifyNotPresent();
 	}
 
 	/**
@@ -1326,7 +1323,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "verify {loc} not visible")
 	public static boolean verifyNotVisible(String loc) {
-		return getElement(loc).verifyNotVisible();
+		return $(loc).verifyNotVisible();
 	}
 
 	/**
@@ -1351,7 +1348,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "verify {loc} enabled")
 	public static boolean verifyEnabled(String loc) {
-		return getElement(loc).verifyEnabled();
+		return $(loc).verifyEnabled();
 	}
 
 	/**
@@ -1376,7 +1373,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "verify {loc} disabled")
 	public static boolean verifyDisabled(String loc) {
-		return getElement(loc).verifyDisabled();
+		return $(loc).verifyDisabled();
 	}
 
 	/**
@@ -1406,7 +1403,7 @@ public final class CommonStep {
 
 	@QAFTestStep(description = "verify {loc} text is {text}")
 	public static boolean verifyText(String loc, String text) {
-		return getElement(loc).verifyText(text);
+		return $(loc).verifyText(text);
 	}
 
 	/**
@@ -1435,7 +1432,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "verify {loc} text is not {text}")
 	public static boolean verifyNotText(String loc, String text) {
-		return getElement(loc).verifyNotText(text);
+		return $(loc).verifyNotText(text);
 	}
 
 	/**
@@ -1462,7 +1459,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "verify {loc} value is {value}")
 	public static <T> boolean verifyValue(String loc, T value) {
-		return getElement(loc).verifyValue(value);
+		return $(loc).verifyValue(value);
 	}
 
 	/**
@@ -1489,7 +1486,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "verify {loc} value is not {value}")
 	public static <T> boolean verifyNotValue(String loc, T value) {
-		return getElement(loc).verifyNotValue(value);
+		return $(loc).verifyNotValue(value);
 	}
 
 	/**
@@ -1515,7 +1512,7 @@ public final class CommonStep {
 	@QAFTestStep(description = "verify {loc} is selected")
 	public static boolean verifySelected(String loc) {
 
-		return getElement(loc).verifySelected();
+		return $(loc).verifySelected();
 	}
 
 	/**
@@ -1540,7 +1537,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "verify {loc} is not selected")
 	public static boolean verifyNotSelected(String loc) {
-		return getElement(loc).verifyNotSelected(loc);
+		return $(loc).verifyNotSelected(loc);
 	}
 
 	/**
@@ -1569,7 +1566,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "verify {loc} attribute {attr} value is {value}")
 	public static boolean verifyAttribute(String loc, String attr, String value) {
-		return getElement(loc).verifyAttribute(attr, value);
+		return $(loc).verifyAttribute(attr, value);
 	}
 
 	/**
@@ -1598,7 +1595,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "verify {loc} attribute {attr} value is not {value}")
 	public static boolean verifyNotAttribute(String loc, String attr, String value) {
-		return getElement(loc).verifyNotAttribute(attr, value);
+		return $(loc).verifyNotAttribute(attr, value);
 	}
 
 	/*
@@ -1632,7 +1629,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "verify {loc} css class name is {className}")
 	public static boolean verifyCssClass(String loc, String className) {
-		return getElement(loc).verifyCssClass(className);
+		return $(loc).verifyCssClass(className);
 	}
 
 	/**
@@ -1659,7 +1656,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "verify {loc} css class name is not {className}")
 	public static boolean verifyNotCssClass(String loc, String className) {
-		return getElement(loc).verifyNotCssClass(className);
+		return $(loc).verifyNotCssClass(className);
 	}
 
 	/**
@@ -1688,7 +1685,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "verify {loc} property {prop} value is {value}")
 	public static boolean verifyCssStyle(String loc, String prop, String value) {
-		return getElement(loc).verifyCssStyle(prop, value);
+		return $(loc).verifyCssStyle(prop, value);
 	}
 
 	/**
@@ -1717,7 +1714,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "verify {loc} property {prop} value is not {value}")
 	public static boolean verifyNotCssStyle(String loc, String prop, String value) {
-		return getElement(loc).verifyNotCssStyle(prop, value);
+		return $(loc).verifyNotCssStyle(prop, value);
 	}
 
 	/**
@@ -1740,7 +1737,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "assert {loc} is not present")
 	public static void assertNotPresent(String loc) {
-		getElement(loc).assertNotPresent();
+		$(loc).assertNotPresent();
 	}
 
 	/**
@@ -1763,7 +1760,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "assert {loc} is not visible")
 	public static void assertNotVisible(String loc) {
-		getElement(loc).assertNotVisible();
+		$(loc).assertNotVisible();
 	}
 
 	/**
@@ -1786,7 +1783,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "assert {loc} is enable")
 	public static void assertEnabled(String loc) {
-		getElement(loc).assertEnabled();
+		$(loc).assertEnabled();
 	}
 
 	/**
@@ -1809,7 +1806,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "assert {loc} is disable")
 	public static void assertDisabled(String loc) {
-		getElement(loc).assertDisabled();
+		$(loc).assertDisabled();
 	}
 
 	/**
@@ -1836,7 +1833,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "assert {loc} text is {text}")
 	public static void assertText(String loc, String text) {
-		getElement(loc).assertText(text);
+		$(loc).assertText(text);
 	}
 
 	/**
@@ -1863,7 +1860,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "assert {loc} text is not {text}")
 	public static void assertNotText(String loc, String text) {
-		getElement(loc).assertNotText(text);
+		$(loc).assertNotText(text);
 	}
 
 	/**
@@ -1889,7 +1886,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "assert {loc} value is {value}")
 	public static void assertValue(String loc, String value) {
-		getElement(loc).assertValue(value);
+		$(loc).assertValue(value);
 	}
 
 	/**
@@ -1915,7 +1912,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "assert {loc} value is not {value}")
 	public static <T> void assertNotValue(String loc, T value) {
-		getElement(loc).assertNotValue(value);
+		$(loc).assertNotValue(value);
 	}
 
 	/**
@@ -1938,7 +1935,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "assert {loc} is selected")
 	public static void assertSelected(String loc) {
-		getElement(loc).assertSelected();
+		$(loc).assertSelected();
 	}
 
 	/**
@@ -1961,7 +1958,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "assert {loc} is not selected")
 	public static void assertNotSelected(String loc) {
-		getElement(loc).assertNotSelected();
+		$(loc).assertNotSelected();
 	}
 
 	/**
@@ -1988,7 +1985,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "assert {loc} attribute {attr} value is {value}")
 	public static void assertAttribute(String loc, String attr, String value) {
-		getElement(loc).assertAttribute(attr, value);
+		$(loc).assertAttribute(attr, value);
 	}
 
 	/**
@@ -2015,7 +2012,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "assert {loc} attribute {attr} value is not {value}")
 	public static void assertNotAttribute(String loc, String attr, String value) {
-		getElement(loc).assertNotAttribute(attr, value);
+		$(loc).assertNotAttribute(attr, value);
 	}
 
 	// public static void assertNotAttribute(String attr, StringMatcher matcher,
@@ -2045,7 +2042,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "assert {loc} css class name is {className}")
 	public static void assertCssClass(String loc, String className) {
-		getElement(loc).assertCssClass(className);
+		$(loc).assertCssClass(className);
 	}
 
 	/**
@@ -2070,7 +2067,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "assert {loc} css class name is not {className}")
 	public static void assertNotCssClass(String loc, String className) {
-		getElement(loc).assertNotCssClass(className);
+		$(loc).assertNotCssClass(className);
 	}
 
 	/**
@@ -2097,7 +2094,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "assert {loc} property {prop} value is {value}")
 	public static void assertCssStyle(String loc, String prop, String value) {
-		getElement(loc).assertCssStyle(prop, value);
+		$(loc).assertCssStyle(prop, value);
 	}
 
 	/**
@@ -2124,7 +2121,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "assert {loc} property {prop} value is not {value}")
 	public static void assertNotCssStyle(String loc, String prop, String value) {
-		getElement(loc).assertNotCssStyle(prop, value);
+		$(loc).assertNotCssStyle(prop, value);
 	}
 
 	/**
@@ -2151,7 +2148,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "set {loc} attribute {attr} value is {value}")
 	public static void setAttribute(String loc, String attr, String value) {
-		getElement(loc).setAttribute(attr, value);
+		$(loc).setAttribute(attr, value);
 	}
 
 	/**
@@ -2202,7 +2199,7 @@ public final class CommonStep {
 	@QAFTestStep(description = "mouse move on {loc}")
 	public static void mouseOver(String loc) {
 		new WebDriverTestBase().getDriver().getMouse()
-				.mouseMove(getElement(loc).getCoordinates());
+				.mouseMove(((QAFExtendedWebElement)$(loc)).getCoordinates());
 	}
 
 	/**
