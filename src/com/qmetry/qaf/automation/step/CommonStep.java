@@ -42,6 +42,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import org.hamcrest.Matchers;
 import org.openqa.selenium.Cookie;
+import org.openqa.selenium.interactions.Actions;
 
 import com.qmetry.qaf.automation.core.TestBaseProvider;
 import com.qmetry.qaf.automation.data.MetaData;
@@ -50,6 +51,7 @@ import com.qmetry.qaf.automation.ui.JsToolkit;
 import com.qmetry.qaf.automation.ui.WebDriverTestBase;
 import static com.qmetry.qaf.automation.ui.webdriver.ElementFactory.$;
 import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebElement;
+import com.qmetry.qaf.automation.ui.webdriver.QAFWebElement;
 import com.qmetry.qaf.automation.util.StringUtil;
 import com.qmetry.qaf.automation.ws.rest.RestTestBase;
 import com.sun.jersey.api.client.ClientResponse;
@@ -323,12 +325,12 @@ public final class CommonStep {
 	 * current thread. Note that it will not tear-down the current driver
 	 * session.
 	 * <p>
-	 * It is useful for some use cases involving browser and device
-	 * - There are some use cases involving more than 2 devices/browsers (ex.:
-	 * video conference)
+	 * It is useful for some use cases involving browser and device - There are
+	 * some use cases involving more than 2 devices/browsers (ex.: video
+	 * conference)
 	 * <p>
-	 * For single driver in entire test case you don't required to use
-	 * this method.
+	 * For single driver in entire test case you don't required to use this
+	 * method.
 	 * 
 	 * @since 2.1.11
 	 * @param driverName
@@ -414,9 +416,7 @@ public final class CommonStep {
 
 	private static void requestFor(String resource, Map<String, String> params) {
 		WebResource webResource = new RestTestBase().getWebResource(
-				getBundle().getString("ws.endurl",
-						ApplicationProperties.SELENIUM_BASE_URL.getStringVal()),
-				resource);
+				getBundle().getString("ws.endurl", ApplicationProperties.SELENIUM_BASE_URL.getStringVal()), resource);
 		if (null != params && !params.isEmpty()) {
 			MultivaluedMap<String, String> mparams = new MultivaluedMapImpl();
 
@@ -471,8 +471,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "user post {content} for resource {resource}")
 	public static void postContent(String content, String resource) {
-		new RestTestBase().getWebResource(getBundle().getString("ws.endurl"), resource)
-				.post(content);
+		new RestTestBase().getWebResource(getBundle().getString("ws.endurl"), resource).post(content);
 	}
 
 	/**
@@ -519,8 +518,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "response should have status code {statusCode}")
 	public static void response_should_have_statuscode(int statusCode) {
-		assertThat("Response Status",
-				new RestTestBase().getResponse().getStatus().getStatusCode(),
+		assertThat("Response Status", new RestTestBase().getResponse().getStatus().getStatusCode(),
 				Matchers.equalTo(statusCode));
 	}
 
@@ -543,8 +541,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "response should have xpath {xpath}")
 	public static void response_should_have_xpath(String xpath) {
-		assertThat(the(new RestTestBase().getResponse().getMessageBody()),
-				hasXPath(xpath));
+		assertThat(the(new RestTestBase().getResponse().getMessageBody()), hasXPath(xpath));
 	}
 
 	/**
@@ -643,6 +640,38 @@ public final class CommonStep {
 	@QAFTestStep(description = "click on {loc}")
 	public static void click(String loc) {
 		$(loc).click();
+	}
+
+	/**
+	 * A convenience step for drag and drop that performs click-and-hold at the location of the
+	 * source element, moves to the location of the target element, then
+	 * releases the mouse.
+	 * 
+	 * <p>
+	 * Example:
+	 * <p>
+	 * BDD
+	 * </p>
+	 * <code>
+	 * drag 'source.ele.loc' and drop on 'target.ele.loc'<br/>
+	 * </code>
+	 * <p>
+	 * KWD
+	 * </p>
+	 * <code>
+	 * dragAndDrop|['source.ele.loc','target.ele.loc']|
+	 * </code>
+	 * @param source
+	 *            : {0} : source element locator to emulate button down at.
+	 * @param target
+	 *            : {1} : target element locator to move to and release the
+	 *            mouse at.
+	 */
+	@QAFTestStep(description = "drag {source} and drop on {target}")
+	public static void dragAndDrop(String source, String target) {
+		QAFExtendedWebElement src = (QAFExtendedWebElement) $(source);
+		Actions actions = new Actions(src.getWrappedDriver());
+		actions.dragAndDrop(src, $(target));
 	}
 
 	/**
@@ -792,7 +821,8 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(description = "wait until {loc} to be present")
 	public static void waitForPresent(String loc) {
-		$(loc).waitForPresent();;
+		$(loc).waitForPresent();
+		;
 
 	}
 
@@ -1098,8 +1128,7 @@ public final class CommonStep {
 
 	// @QAFTestStep(stepName = "waitForNotAttributeWithTimeout", description =
 	// "wait {3}sec for {0} attribute {1} value is not {2}")
-	public static void waitForNotAttribute(String loc, String attr, String value,
-			long sec) {
+	public static void waitForNotAttribute(String loc, String attr, String value, long sec) {
 		$(loc).waitForAttribute(attr, value, sec * 1000);
 	}
 
@@ -1235,8 +1264,7 @@ public final class CommonStep {
 
 	// @QAFTestStep(stepName = "waitForNotCssStyleWithTimeout", description =
 	// "wait {3}sec for {0} css property {1} vaule is {2} ")
-	public static void waitForNotCssStyle(String loc, String prop, String value,
-			long sec) {
+	public static void waitForNotCssStyle(String loc, String prop, String value, long sec) {
 		$(loc).waitForNotCssStyle(prop, value, sec * 1000);
 
 	}
@@ -1281,18 +1309,12 @@ public final class CommonStep {
 	 * Will check and wait until in-progress AJAX call get completed from
 	 * provide toolkit. Following are supported toolkit:
 	 * <ul>
-	 * <li>
-	 * DOJO
-	 * <li>
-	 * EXTJS
-	 * <li>
-	 * JQUERY
-	 * <li>
-	 * YUI
-	 * <li>
-	 * PHPJS
-	 * <li>
-	 * PROTOTYPE
+	 * <li>DOJO
+	 * <li>EXTJS
+	 * <li>JQUERY
+	 * <li>YUI
+	 * <li>PHPJS
+	 * <li>PROTOTYPE
 	 * 
 	 * @param jstoolkit
 	 *            must be one of the {@link JsToolkit}
@@ -1301,6 +1323,7 @@ public final class CommonStep {
 	public static void waitForAjaxToComplete(String jstoolkit) {
 		new WebDriverTestBase().getDriver().waitForAjax(JsToolkit.valueOf(jstoolkit));
 	}
+
 	/**
 	 * Assert that the specified element is not visible somewhere on the page
 	 * <p>
@@ -2198,8 +2221,7 @@ public final class CommonStep {
 
 	@QAFTestStep(description = "mouse move on {loc}")
 	public static void mouseOver(String loc) {
-		new WebDriverTestBase().getDriver().getMouse()
-				.mouseMove(((QAFExtendedWebElement)$(loc)).getCoordinates());
+		new WebDriverTestBase().getDriver().getMouse().mouseMove(((QAFExtendedWebElement) $(loc)).getCoordinates());
 	}
 
 	/**
@@ -2241,8 +2263,7 @@ public final class CommonStep {
 	 */
 	@QAFTestStep(stepName = "switchToFrame", description = "switch to frame {0}")
 	public static Object switchToFrame(String locator) {
-		return new WebDriverTestBase().getDriver().switchTo()
-				.frame(new QAFExtendedWebElement(locator));
+		return new WebDriverTestBase().getDriver().switchTo().frame(new QAFExtendedWebElement(locator));
 	}
 
 	/**
