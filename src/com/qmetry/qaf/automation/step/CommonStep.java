@@ -30,34 +30,20 @@
 package com.qmetry.qaf.automation.step;
 
 import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
-import static com.qmetry.qaf.automation.util.Validator.assertThat;
-import static org.xmlmatchers.transform.XmlConverters.the;
-import static org.xmlmatchers.xpath.HasXPath.hasXPath;
+import static com.qmetry.qaf.automation.ui.webdriver.ElementFactory.$;
 
 import java.util.Iterator;
-import java.util.Map;
 import java.util.Set;
 
-import javax.ws.rs.core.MultivaluedMap;
-
-import org.hamcrest.Matchers;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.interactions.Actions;
 
 import com.qmetry.qaf.automation.core.TestBaseProvider;
 import com.qmetry.qaf.automation.data.MetaData;
-import com.qmetry.qaf.automation.keys.ApplicationProperties;
 import com.qmetry.qaf.automation.ui.JsToolkit;
 import com.qmetry.qaf.automation.ui.WebDriverTestBase;
-import static com.qmetry.qaf.automation.ui.webdriver.ElementFactory.$;
 import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebElement;
-import com.qmetry.qaf.automation.ui.webdriver.QAFWebElement;
 import com.qmetry.qaf.automation.util.StringUtil;
-import com.qmetry.qaf.automation.ws.rest.RestTestBase;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.ClientResponse.Status;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.core.util.MultivaluedMapImpl;
 
 /**
  * com.qmetry.qaf.automation.step.CommonStep.java
@@ -343,6 +329,15 @@ public final class CommonStep {
 	}
 
 	/**
+	 * This step will tear down driver. It will quite and end current browser
+	 * session.
+	 */
+	@QAFTestStep(description = "tear down driver")
+	public static void tearDownDriver() {
+		TestBaseProvider.instance().get().tearDown();
+	}
+
+	/**
 	 * Switch the context to the driver to new window Example:<br/>
 	 * <code>
 	 * switchToWindow '2'<br/>
@@ -365,183 +360,6 @@ public final class CommonStep {
 		} else {
 			new WebDriverTestBase().getDriver().switchTo().window(nameOrIndex);
 		}
-	}
-
-	/**
-	 * sets the service end point URL
-	 * <p>
-	 * Example:
-	 * <p>
-	 * BDD
-	 * </p>
-	 * <code>
-	 * service endpoint is 'http://feeds.feedburner.com/InfostretchMobileAndQaBlog'<br/>
-	 * </code>
-	 * <p>
-	 * KWD
-	 * </p>
-	 * 
-	 * @param endpoint
-	 *            : {0} : The URL to be set as end point
-	 */
-	@QAFTestStep(description = "service endpoint is {endpoint}")
-	public static void setServiceEndPoint(String endpoint) {
-		getBundle().setProperty("ws.endurl", endpoint);
-	}
-
-	/**
-	 * This method request for resource to the web service by passing the
-	 * required parameters.
-	 * <p>
-	 * Example:
-	 * <p>
-	 * BDD
-	 * </p>
-	 * <code>
-	 * user request for resource 'resource' with 'params'<br/>
-	 * </code>
-	 * <p>
-	 * KWD
-	 * </p>
-	 * 
-	 * @param resource
-	 *            : {0} : resource String
-	 * @param params
-	 *            : {1} : parameters
-	 */
-	@QAFTestStep(stepName = "requestForResourceWithParams", description = "user request for resource {resource} with {params}")
-	public static void requestForResource(String resource, Map<String, String> params) {
-		requestFor(resource, params);
-	}
-
-	private static void requestFor(String resource, Map<String, String> params) {
-		WebResource webResource = new RestTestBase().getWebResource(
-				getBundle().getString("ws.endurl", ApplicationProperties.SELENIUM_BASE_URL.getStringVal()), resource);
-		if (null != params && !params.isEmpty()) {
-			MultivaluedMap<String, String> mparams = new MultivaluedMapImpl();
-
-			for (String key : params.keySet()) {
-				mparams.add(key, params.get(key));
-			}
-			webResource = webResource.queryParams(mparams);
-		}
-		webResource.get(ClientResponse.class);
-	}
-
-	/**
-	 * This method request for resource to the web service.
-	 * <p>
-	 * Example:
-	 * <p>
-	 * BDD
-	 * </p>
-	 * <code>
-	 * user request for resource 'Resource String'<br/>
-	 * </code>
-	 * <p>
-	 * KWD
-	 * </p>
-	 * 
-	 * @param resource
-	 *            : {0} : resource String
-	 */
-	@QAFTestStep(description = "user request for resource {resource}")
-	public static void requestForResource(String resource) {
-		requestFor(resource, null);
-	}
-
-	/**
-	 * This method post the content through the web service.
-	 * <p>
-	 * Example:
-	 * <p>
-	 * BDD
-	 * </p>
-	 * <code>
-	 * user post 'postContent' for resource 'resource'<br/>
-	 * </code>
-	 * <p>
-	 * KWD
-	 * </p>
-	 * 
-	 * @param content
-	 *            : {0} : content to be posted to service end point
-	 * @param resource
-	 *            : {1} : resource string
-	 */
-	@QAFTestStep(description = "user post {content} for resource {resource}")
-	public static void postContent(String content, String resource) {
-		new RestTestBase().getWebResource(getBundle().getString("ws.endurl"), resource).post(content);
-	}
-
-	/**
-	 * This method check for the response status of web service
-	 * <p>
-	 * Example:
-	 * <p>
-	 * BDD
-	 * </p>
-	 * <code>
-	 * response should have status 'ResponceStatus'<br/>
-	 * </code>
-	 * <p>
-	 * KWD
-	 * </p>
-	 * 
-	 * @param status
-	 *            : {0} : Status String for Exampe: OK, CREATED
-	 * @see Status
-	 */
-	@QAFTestStep(description = "response should have status {status}")
-	public static void response_should_have_status(String status) {
-		assertThat("Response Status", new RestTestBase().getResponse().getStatus().name(),
-				Matchers.equalToIgnoringCase(status));
-	}
-
-	/**
-	 * This method check for the response status of web service
-	 * <p>
-	 * Example:
-	 * <p>
-	 * BDD
-	 * </p>
-	 * <code>
-	 * response should have status 'ResponceStatus'<br/>
-	 * </code>
-	 * <p>
-	 * KWD
-	 * </p>
-	 * 
-	 * @param status
-	 *            : {0} : Status code, for example 200, 301
-	 * @see Status
-	 */
-	@QAFTestStep(description = "response should have status code {statusCode}")
-	public static void response_should_have_statuscode(int statusCode) {
-		assertThat("Response Status", new RestTestBase().getResponse().getStatus().getStatusCode(),
-				Matchers.equalTo(statusCode));
-	}
-
-	/**
-	 * This method check given Xpath is there in response status of web service
-	 * <p>
-	 * Example:
-	 * <p>
-	 * BDD
-	 * </p>
-	 * <code>
-	 * response should have xpath 'Xpath String'<br/>
-	 * </code>
-	 * <p>
-	 * KWD
-	 * </p>
-	 * 
-	 * @param xpath
-	 *            : {0} : xpath string to be verified in respose
-	 */
-	@QAFTestStep(description = "response should have xpath {xpath}")
-	public static void response_should_have_xpath(String xpath) {
-		assertThat(the(new RestTestBase().getResponse().getMessageBody()), hasXPath(xpath));
 	}
 
 	/**
@@ -643,9 +461,9 @@ public final class CommonStep {
 	}
 
 	/**
-	 * A convenience step for drag and drop that performs click-and-hold at the location of the
-	 * source element, moves to the location of the target element, then
-	 * releases the mouse.
+	 * A convenience step for drag and drop that performs click-and-hold at the
+	 * location of the source element, moves to the location of the target
+	 * element, then releases the mouse.
 	 * 
 	 * <p>
 	 * Example:
@@ -661,6 +479,7 @@ public final class CommonStep {
 	 * <code>
 	 * dragAndDrop|['source.ele.loc','target.ele.loc']|
 	 * </code>
+	 * 
 	 * @param source
 	 *            : {0} : source element locator to emulate button down at.
 	 * @param target
