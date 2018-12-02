@@ -2052,7 +2052,7 @@ public final class CommonStep {
 	 * @param threshold
 	 */
 	@MetaData("{'qafstep-transaction':true}")
-	@QAFTestStep(stepName = "startTransactionWithThreshold", description = "start (transaction|time-tracker) for {task-name} with {second}s threshold")
+	@QAFTestStep(stepName = "startTransactionWithThreshold", description = "start (step|transaction|time-tracker) (for|:) {task-name} with {second}s threshold")
 	public static void startTransaction(String name, int threshold) {
 
 	}
@@ -2064,13 +2064,13 @@ public final class CommonStep {
 	 * @param name
 	 */
 	@MetaData("{'qafstep-transaction':true}")
-	@QAFTestStep(description = "start (transaction|time-tracker) for {task-name}")
+	@QAFTestStep(description = "start (step|transaction|time-tracker) (for|:) {task-name}")
 	public static void startTransaction(String name) {
 
 	}
 
 	@MetaData("{'qafstep-transaction':true}")
-	@QAFTestStep(description = "stop (transaction|time-tracker)")
+	@QAFTestStep(description = "(stop|end) (step|transaction|time-tracker)")
 	public static void stopTransaction() {
 
 	}
