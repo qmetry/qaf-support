@@ -1080,6 +1080,62 @@ public final class CommonStep {
 		$(loc).waitForNotCssStyle(prop, value);
 
 	}
+	
+	/**
+	 * This method wait until it gets the css color property value for specified element
+	 * locator
+	 * <p>
+	 * Example:
+	 * <p>
+	 * BDD
+	 * </p>
+	 * <code>
+	 * wait until 'my.ele.loc' color 'propertyStyle' value is 'value'<br/>
+	 * </code>
+	 * <p>
+	 * KWD
+	 * </p>
+	 * 
+	 * @param loc
+	 *            : {0} : an element locator, can be direct locator value or a
+	 *            locator key stored in locator repository
+	 * @param prop
+	 *            : {1} : color property (css style) to be verified
+	 * @param value
+	 *            : {2} : value of color in hex or rgb or rgba
+	 */
+	@QAFTestStep(description = "wait until {loc} color {prop} value is {value}")
+	public static void waitForCssStyleColor(String loc, String prop, String value) {
+		$(loc).waitForCssStyleColor(prop, value);
+	}
+
+	/**
+	 * This method wait until not the css color property value of element
+	 * locator
+	 * <p>
+	 * Example:
+	 * <p>
+	 * BDD
+	 * </p>
+	 * <code>
+	 * wait until 'my.ele.loc' color 'propertyStyle' value is not 'value'<br/>
+	 * </code>
+	 * <p>
+	 * KWD
+	 * </p>
+	 * 
+	 * @param loc
+	 *            : {0} : an element locator, can be direct locator value or a
+	 *            locator key stored in locator repository
+	 * @param prop
+	 *            : {1} : color property (css style) to be verified
+	 * @param value
+	 *            : {2} : value of color in hex or rgb or rgba
+	 */
+	@QAFTestStep(description = "wait until {loc} color {prop} value is not {value}")
+	public static void waitForNotCssStyleColor(String loc, String prop, String value) {
+		$(loc).waitForNotCssStyleColor(prop, value);
+	}
 
 	// @QAFTestStep(stepName = "waitForNotCssStyleWithTimeout", description =
 	// "wait {3}sec for {0} css property {1} vaule is {2} ")
@@ -1522,7 +1578,7 @@ public final class CommonStep {
 	 *            : {1} : property (css style) to be verified
 	 * @param value
 	 *            : {2} : value of property (i.e css style property value)
-	 * @return <b>true</b> if the element locator property value is verified,
+	 * @return <b>true</b> if the element locator color property value is verified,
 	 *         <b>false</b> otherwise
 	 */
 	@QAFTestStep(description = "verify {loc} property {prop} value is {value}")
@@ -1551,7 +1607,7 @@ public final class CommonStep {
 	 *            : {1} : property (css style) to be verified
 	 * @param value
 	 *            : {2} : value of property (i.e css style property value)
-	 * @return <b>true</b> if the element locator property value is not
+	 * @return <b>true</b> if the element locator color property value is not
 	 *         verified, <b>false</b> otherwise
 	 */
 	@QAFTestStep(description = "verify {loc} property {prop} value is not {value}")
@@ -1559,6 +1615,60 @@ public final class CommonStep {
 		return $(loc).verifyNotCssStyle(prop, value);
 	}
 
+	/**
+	 * This method verify the css color property value of is equal to value provide for element
+	 * locator
+	 * <p>
+	 * Example:
+	 * <p>
+	 * BDD
+	 * </p>
+	 * <code>
+	 * verify 'my.ele.loc' color 'propertyStyle' value is 'value'<br/>
+	 * </code>
+	 * <p>
+	 * KWD
+	 * </p>
+	 * 
+	 * @param loc
+	 *            : {0} : an element locator, can be direct locator value or a
+	 *            locator key stored in locator repository
+	 * @param prop
+	 *            : {1} : color property (css style) to be verified
+	 * @param value
+	 *            : {2} : value of color in hex or rgb or rgba
+	 */
+	@QAFTestStep(description = "verify {loc} color {prop} value is {value}")
+	public static void verifyCssStyleColor(String loc, String prop, String value) {
+		$(loc).verifyCssStyleColor(prop, value);
+	}
+	/**
+	 * This method verify the css color property value of is not equal to value provide for element
+	 * locator
+	 * <p>
+	 * Example:
+	 * <p>
+	 * BDD
+	 * </p>
+	 * <code>
+	 * verify 'my.ele.loc' color 'propertyStyle' value is not 'value'<br/>
+	 * </code>
+	 * <p>
+	 * KWD
+	 * </p>
+	 * 
+	 * @param loc
+	 *            : {0} : an element locator, can be direct locator value or a
+	 *            locator key stored in locator repository
+	 * @param prop
+	 *            : {1} : color property (css style) to be verified
+	 * @param value
+	 *            : {2} : value of color in hex or rgb or rgba
+	 */
+	@QAFTestStep(description = "verify {loc} color {prop} value is not {value}")
+	public static void verifyNotCssStyleColor(String loc, String prop, String value) {
+		$(loc).verifyNotCssStyleColor(prop, value);
+	}
 	/**
 	 * Verify that the specified element is not present somewhere on the page
 	 * <p>
@@ -1966,6 +2076,61 @@ public final class CommonStep {
 		$(loc).assertNotCssStyle(prop, value);
 	}
 
+	/**
+	 * This method verify the css color property value of is equal to value provide for element
+	 * locator
+	 * <p>
+	 * Example:
+	 * <p>
+	 * BDD
+	 * </p>
+	 * <code>
+	 * verify 'my.ele.loc' color 'propertyStyle' value is 'value'<br/>
+	 * </code>
+	 * <p>
+	 * KWD
+	 * </p>
+	 * 
+	 * @param loc
+	 *            : {0} : an element locator, can be direct locator value or a
+	 *            locator key stored in locator repository
+	 * @param prop
+	 *            : {1} : color property (css style) to be verified
+	 * @param value
+	 *            : {2} : value of color in hex or rgb or rgba
+	 */
+	@QAFTestStep(description = "verify {loc} color {prop} value is {value}")
+	public static void assertCssStyleColor(String loc, String prop, String value) {
+		$(loc).assertCssStyleColor(prop, value);
+	}
+	
+	/**
+	 * This method verify the css color property value of is not equal to value provide for element
+	 * locator
+	 * <p>
+	 * Example:
+	 * <p>
+	 * BDD
+	 * </p>
+	 * <code>
+	 * verify 'my.ele.loc' color 'propertyStyle' value is not 'value'<br/>
+	 * </code>
+	 * <p>
+	 * KWD
+	 * </p>
+	 * 
+	 * @param loc
+	 *            : {0} : an element locator, can be direct locator value or a
+	 *            locator key stored in locator repository
+	 * @param prop
+	 *            : {1} : color property (css style) to be verified
+	 * @param value
+	 *            : {2} : value of color in hex or rgb or rgba
+	 */
+	@QAFTestStep(description = "verify {loc} color {prop} value is not {value}")
+	public static void assertNotCssStyleColor(String loc, String prop, String value) {
+		$(loc).assertNotCssStyleColor(prop, value);
+	}	
 	/**
 	 * set the attribute value for specific locator somewhere in the page.
 	 * <p>
