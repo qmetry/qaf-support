@@ -1959,11 +1959,6 @@ public final class CommonStep {
 		$(loc).assertNotAttribute(attr, value);
 	}
 
-	// public static void assertNotAttribute(String attr, StringMatcher matcher,
-	// String... label) {
-	// // TODO Auto-generated method stub
-	//
-	// }
 	/**
 	 * verify css class name for specific locator somewhere in the page.
 	 * <p>
@@ -2077,7 +2072,7 @@ public final class CommonStep {
 	 * BDD
 	 * </p>
 	 * <code>
-	 * verify 'my.ele.loc' color 'propertyStyle' value is 'value'<br/>
+	 * assert 'my.ele.loc' color 'propertyStyle' value is 'value'<br/>
 	 * </code>
 	 * <p>
 	 * KWD
@@ -2091,7 +2086,7 @@ public final class CommonStep {
 	 * @param value
 	 *            : {2} : value of color in hex or rgb or rgba
 	 */
-	@QAFTestStep(description = "verify {loc} color {prop} value is {value}")
+	@QAFTestStep(description = "assert {loc} color {prop} value is {value}")
 	public static void assertCssStyleColor(String loc, String prop, String value) {
 		$(loc).assertCssStyleColor(prop, value);
 	}
@@ -2105,7 +2100,7 @@ public final class CommonStep {
 	 * BDD
 	 * </p>
 	 * <code>
-	 * verify 'my.ele.loc' color 'propertyStyle' value is not 'value'<br/>
+	 * assert 'my.ele.loc' color 'propertyStyle' value is not 'value'<br/>
 	 * </code>
 	 * <p>
 	 * KWD
@@ -2119,7 +2114,7 @@ public final class CommonStep {
 	 * @param value
 	 *            : {2} : value of color in hex or rgb or rgba
 	 */
-	@QAFTestStep(description = "verify {loc} color {prop} value is not {value}")
+	@QAFTestStep(description = "assert {loc} color {prop} value is not {value}")
 	public static void assertNotCssStyleColor(String loc, String prop, String value) {
 		$(loc).assertNotCssStyleColor(prop, value);
 	}	
