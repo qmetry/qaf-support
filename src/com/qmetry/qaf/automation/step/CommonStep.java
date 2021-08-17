@@ -35,6 +35,7 @@ import com.qmetry.qaf.automation.data.MetaData;
 import com.qmetry.qaf.automation.ui.JsToolkit;
 import com.qmetry.qaf.automation.ui.WebDriverTestBase;
 import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebElement;
+import com.qmetry.qaf.automation.util.StringMatcher;
 import com.qmetry.qaf.automation.util.StringUtil;
 
 /**
@@ -1190,7 +1191,88 @@ public final class CommonStep {
 	public static void waitForAjaxToComplete(String jstoolkit) {
 		new WebDriverTestBase().getDriver().waitForAjax(JsToolkit.valueOf(jstoolkit));
 	}
+	
+	/**
+	 * 
+	 * @param title
+	 */
+	@QAFTestStep(description = "wait until window title {title}")
+	public static void waitForWindowTitle(String title) {
+		new WebDriverTestBase().getDriver().waitForWindowTitle(StringMatcher.expected(title));
+	}
 
+	/**
+	 * 
+	 * @param title
+	 */
+	@QAFTestStep(description = "verify window title {title}")
+	public static void verifyWindowTitle(String title) {
+		new WebDriverTestBase().getDriver().verifyTitle(StringMatcher.expected(title));
+	}
+	
+	/**
+	 * Assert window title
+	 * 
+	 * @param title
+	 */
+	@QAFTestStep(description = "assert window title {title}")
+	public static void assertWindowTitle(String title) {
+		new WebDriverTestBase().getDriver().assertTitle(StringMatcher.expected(title));
+	}
+	
+	/**
+	 * 
+	 * @param url
+	 */
+	@QAFTestStep(description = "wait until window url {url}")
+	public static void waitForWindowUrl(String url) {
+		new WebDriverTestBase().getDriver().waitForCurrentUrl(StringMatcher.expected(url));
+	}
+
+	/**
+	 * 
+	 * @param url
+	 */
+	@QAFTestStep(description = "verify window url {url}")
+	public static void verifyWindowUrl(String url) {
+		new WebDriverTestBase().getDriver().verifyCurrentUrl(StringMatcher.expected(url));
+	}
+	
+	/**
+	 * 
+	 * @param url
+	 */
+	@QAFTestStep(description = "assert window url {url}")
+	public static void assertWindowUrl(String url) {
+		new WebDriverTestBase().getDriver().assertCurrentUrl(StringMatcher.expected(url));
+	}
+	
+	/**
+	 * 
+	 * @param count
+	 */
+	@QAFTestStep(description = "wait until no of windows to be {count}")
+	public static void waitForNoOfWindows(int count) {
+		new WebDriverTestBase().getDriver().waitForNoOfWindows(count);
+	}
+
+	/**
+	 * 
+	 * @param count
+	 */
+	@QAFTestStep(description = "verify no of windows is {count}")
+	public static void verifyNoOfWindows(int count) {
+		new WebDriverTestBase().getDriver().verifyNoOfWindows(count);
+	}
+	/**
+	 * 
+	 * @param count
+	 */
+	@QAFTestStep(description = "assert no of windows is {count}")
+	public static void assertNoOfWindows(int count) {
+		new WebDriverTestBase().getDriver().assertNoOfWindows(count);
+	}
+	
 	/**
 	 * Assert that the specified element is not visible somewhere on the page
 	 * <p>
