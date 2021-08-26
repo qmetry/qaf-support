@@ -24,6 +24,7 @@ package com.qmetry.qaf.automation.step;
 import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
 import static com.qmetry.qaf.automation.ui.webdriver.ElementFactory.$;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -35,6 +36,7 @@ import com.qmetry.qaf.automation.data.MetaData;
 import com.qmetry.qaf.automation.ui.JsToolkit;
 import com.qmetry.qaf.automation.ui.WebDriverTestBase;
 import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebElement;
+import com.qmetry.qaf.automation.ui.webdriver.QAFWebElement;
 import com.qmetry.qaf.automation.util.StringMatcher;
 import com.qmetry.qaf.automation.util.StringUtil;
 
@@ -1190,6 +1192,50 @@ public final class CommonStep {
 	@QAFTestStep(description = "wait until {jstoolkit} ajax call complete")
 	public static void waitForAjaxToComplete(String jstoolkit) {
 		new WebDriverTestBase().getDriver().waitForAjax(JsToolkit.valueOf(jstoolkit));
+	}
+	
+	/**
+	 * 
+	 * @param elementloc
+	 */
+	@QAFTestStep(description = "wait until any of {loc} to be present")
+	public static void waitForAnyElementPresent(String... elementloc) {
+		QAFWebElement[] elements=
+				Arrays.stream(elementloc).map(loc-> $(loc)).toArray(QAFWebElement[]::new);
+		new WebDriverTestBase().getDriver().waitForAnyElementPresent(elements);
+	}
+	
+	/**
+	 * 
+	 * @param elementloc
+	 */
+	@QAFTestStep(description = "wait until all of {loc} to be present")
+	public static void waitForAllElementPresent(String... elementloc) {
+		QAFWebElement[] elements=
+				Arrays.stream(elementloc).map(loc-> $(loc)).toArray(QAFWebElement[]::new);
+		new WebDriverTestBase().getDriver().waitForAllElementPresent(elements);
+	}
+	
+	/**
+	 * 
+	 * @param elementloc
+	 */
+	@QAFTestStep(description = "wait until any of {loc} to be visible")
+	public static void waitForAnyElementVisible(String... elementloc) {
+		QAFWebElement[] elements=
+				Arrays.stream(elementloc).map(loc-> $(loc)).toArray(QAFWebElement[]::new);
+		new WebDriverTestBase().getDriver().waitForAnyElementVisible(elements);
+	}
+	
+	/**
+	 * 
+	 * @param elementloc
+	 */
+	@QAFTestStep(description = "wait until all of {loc} to be visible")
+	public static void waitForAllElementVisible(String... elementloc) {
+		QAFWebElement[] elements=
+				Arrays.stream(elementloc).map(loc-> $(loc)).toArray(QAFWebElement[]::new);
+		new WebDriverTestBase().getDriver().waitForAllElementVisible(elements);
 	}
 	
 	/**
