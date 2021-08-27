@@ -23,15 +23,15 @@
 
 	<dependencies>
 		<dependency org="com.qmetry" name="qaf" rev="latest.integration" conf="provided->default"/>
-		<dependency org="org.aspectj" name="aspectjtools" rev="1.8.9" conf="provided->default">
-			<artifact name="aspectjtools" type="jar"></artifact>
-		</dependency>
-		<dependency org="org.aspectj" name="aspectjrt" rev="1.8.9" conf="provided->default">
+		<dependency org="org.aspectj" name="aspectjrt" rev="1.8.9" conf="compile->default">
 			<artifact name="aspectjrt" type="jar"></artifact>
 		</dependency>
 
-		<dependency org="org.aspectj" name="aspectjweaver" rev="1.8.9" conf="provided->default">
+		<dependency org="org.aspectj" name="aspectjweaver" rev="1.8.9" conf="compile->default">
 			<artifact name="aspectjweaver" type="jar"></artifact>
+		</dependency>
+		<dependency org="org.aspectj" name="aspectjtools" rev="1.8.9" conf="compile->default">
+			<artifact name="aspectjtools" type="jar"></artifact>
 		</dependency>	
 		<!--  ws  
 		<dependency org="xmlunit" name="xmlunit" rev="1.4" />
