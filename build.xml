@@ -25,7 +25,6 @@ For any inquiry or need additional information, please contact support-qaf@infos
 
 <project basedir="." default="build" name="QualityAutomationFramework" xmlns:ivy="antlib:org.apache.ivy.ant">
 	<get src="https://raw.githubusercontent.com/qmetry/qaf-parent/master/common-build-tasks.xml" dest="../common-build-tasks.xml" skipexisting="true"/>
-	<import file="../common-build-tasks.xml" optional="false" />
 
 	<target depends="init" name="compile">
 		<taskdef classpathref="build.classpath" resource="org/aspectj/tools/ant/taskdefs/aspectjTaskdefs.properties" />
@@ -66,4 +65,6 @@ For any inquiry or need additional information, please contact support-qaf@infos
 			</manifest>
 		</jar>
 	</target>
+	<import file="../common-build-tasks.xml" optional="false" />
+
 </project>
