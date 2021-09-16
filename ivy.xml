@@ -22,15 +22,15 @@
     </configurations>
 
 	<dependencies>
-		<dependency org="com.qmetry" name="qaf" rev="latest.integration" conf="compile->default"/>
-		<dependency org="org.aspectj" name="aspectjrt" rev="1.9.5" conf="compile->default">
+		<dependency org="com.qmetry" name="qaf" rev="${release.num}" conf="compile->default"/>
+		<dependency org="org.aspectj" name="aspectjrt" rev="1.9.5">
 			<artifact name="aspectjrt" type="jar"></artifact>
 		</dependency>
 
-		<dependency org="org.aspectj" name="aspectjweaver" rev="1.9.5" conf="compile->default">
+		<dependency org="org.aspectj" name="aspectjweaver" rev="1.9.5">
 			<artifact name="aspectjweaver" type="jar"></artifact>
 		</dependency>
-		<dependency org="org.aspectj" name="aspectjtools" rev="1.9.5" conf="compile->default">
+		<dependency org="org.aspectj" name="aspectjtools" rev="1.9.5">
 			<artifact name="aspectjtools" type="jar"></artifact>
 		</dependency>	
 		<!--  ws  
@@ -38,7 +38,7 @@
 		<dependency org="org.xmlmatchers" name="xml-matchers" rev="latest.integration" />
 		<dependency org="com.jayway.jsonpath" name="json-path" rev="0.8.1" />
 		<dependency org="com.jayway.jsonpath" name="json-path-assert"
-			rev="0.8.1" />	
+			rev="0.8.1" />
 		-->
 		</dependencies>
 </ivy-module>
