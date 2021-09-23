@@ -1,3 +1,8 @@
+[![License](https://img.shields.io/github/license/qmetry/qaf-support.svg)](http://www.opensource.org/licenses/mit-license.php)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.qmetry/qaf-support/badge.svg)](https://mvnrepository.com/artifact/com.qmetry/qaf-support/latest)
+[![GitHub tag](https://img.shields.io/github/tag/qmetry/qaf-support.svg)](https://github.com/qmetry/qaf-support/tags)
+[![javadoc](https://javadoc.io/badge2/com.qmetry/qaf-support/javadoc.svg)](https://javadoc.io/doc/com.qmetry/qaf-support)
+
 # qaf-support
 Support project that provides ready to use steps for web and webservices
 
